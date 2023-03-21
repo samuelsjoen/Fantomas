@@ -66,7 +66,7 @@ Eksempler på programmer som er *akkurat innenfor* kravet til kompleksitet når 
 
 * Hangman med en ordentlig figur og sikkelig ordbok 
 * Snake
-* [Tron Light Cycles](https://www.classicfreearcade.com/flash-game/21670/tron-game.html) 
+* [Tron Light Cycle](https://www.classicfreearcade.com/flash-game/21670/tron-game.html) for to spillere (se også [video](https://www.youtube.com/watch?v=1zv333wxZFU) av orginalen fra 1982).
 * Pong med poeng og to spillere
 
 Eksempler på programmer som er *utenfor* kravet til kompleksitet når de kommer i sin aller enkleste form:
