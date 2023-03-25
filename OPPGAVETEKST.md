@@ -1,7 +1,6 @@
 # Semesteroppgave 2 vår 2023
 
 
-
 **I denne oppgaven skal du lage din helt egen applikasjon!** 
 
 
@@ -66,7 +65,7 @@ Eksempler på programmer som er *akkurat innenfor* kravet til kompleksitet når 
 
 * Hangman med en ordentlig figur og sikkelig ordbok 
 * Snake
-* [Tron Light Cycle](https://www.classicfreearcade.com/flash-game/21670/tron-game.html) for to spillere (se også [video](https://www.youtube.com/watch?v=1zv333wxZFU) av orginalen fra 1982).
+* [Tron Light Cycles](https://www.classicfreearcade.com/flash-game/21670/tron-game.html) for to spillere (se også [video](https://www.youtube.com/watch?v=1zv333wxZFU) av orginalen fra 1982).
 * Pong med poeng og to spillere
 
 Eksempler på programmer som er *utenfor* kravet til kompleksitet når de kommer i sin aller enkleste form:
@@ -88,29 +87,23 @@ I utgangspunktet er oppgaven individuell, men dersom dere er to personer med ste
 * Siste vurdering gjøres individuelt.
 
 Det er ikke tillatt å samarbeide i større grupper.
-Dersom dere ønsker å arbeide i par, fyll ut skjema før mandag 27. mars: https://skjemaker.app.uib.no/view.php?id=14579094
+Dersom dere ønsker å arbeide i par, fyll ut skjema før første møte med gruppeleder`: https://skjemaker.app.uib.no/view.php?id=14579094
 
-## Øvrig samarbeid
+**Øvrig samarbeid**
 
 Det er alltid tillatt å be om hjelp av og gi hjelp til noen som ikke lager det samme som deg selv.
 
+## Plagiat og ressurser på internett
 
-## Lag en installer (frivillig)
+**Det er kjempeviktig å tydelig markere og kreditere all kode du ikke har skrevet selv.** Å glemme å sitere opphavet til kopiert kode er *plagiat*, og vil ha alvorlige konsekvenser, jamfør universitetets policy om juks.
+  * Dersom du har kopiert en metode, skriv en kommentar om opphavet i begynnelsen av metoden.
+  * Dersom du har kopiert en hel klasse, skriv øverst i filen hvor klassen kommer fra.
 
-I dette prosjektet er Maven konfigurert slik at vi kan lage en *installer*, slik at programmet ditt enkelt kan installeres på ulike datamaskiner.
+ **Du kan benytte kode du ikke har skrevet selv så mye du ønsker.** Den delen av koden som er kopiert vil imidlertid ikke inngå som en del av vurderingsgrunnlaget med mindre den er vesentlig omarbeidet for å passe med sin nye kontekst.
+ 
+ Begge overnevnte punkter gjelder også kode som er skrevet ved å følge detaljerte tutorials.
 
-**Mac**
 
-Kjør *Maven -> Lifecycle -> install*
-
-**Windows**
-
-Forutsetninger:
-* [.NET 3.5](https://www.microsoft.com/nb-no/download/details.aspx?id=21) er installert
-* [WiX versjon 3](https://wixtoolset.org/docs/wix3/) er installert
-
-Kjør deretter *Maven -> Lifecycle -> install*
-
-Uansett operativsystem vil en installer legge seg i mappen `target/installer` når du har kjørt install-fasen til maven. Denne filen kan du dele med lillebror eller legge ut på hjemmesiden din, så kan andre kjøre programmet ditt på sin maskin uten å installere en IDE eller fikle med kommandolinjen. (PS: installeren vil bare fungere på samme operativsystem som den ble laget på).
-
-> Du må justere innholdet i [pom.xml](./pom.xml) slik at det matcher ditt prosjekt (for eksempel bør du endre på *name* og *app.vendor*). Dersom du importerer spesielle pakker kan det være du må gjøre tilpasninger av scriptene i *make* -mappen også.
+**Benytt gjerne kunstig intelligens.** AI-verktøy som CoPilot og ChatGPT er tillatt. Dersom du kopierer et større avsnitt eller en klasse fra ChatGPT, skriv en kommentar om dette.
+ 
+ Uansett opphav er det er forventet at du kan forklare all koden i ditt eget repositorie.
