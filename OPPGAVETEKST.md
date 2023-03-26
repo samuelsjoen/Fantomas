@@ -3,26 +3,27 @@
 
 **I denne oppgaven skal du lage din helt egen applikasjon!** Eller som ChatGPT ville sagt det hvis den fikk dikte fritt:
 
-> I et tomt dokument venter en verden
+```text
+I et tomt dokument venter en verden
 klar til å bli skapt av dine hender
 Med Java som språk og fantasi som drivkraft
 kan du lage et program, uansett hva du har lyst til å skape
->
-> Finn din inspirasjon og følg din visjon
+
+Finn din inspirasjon og følg din visjon
 La ideene flyte og kreativiteten blomstre
 Fra enkel kalkulering til komplekse simuleringer
 mulighetene er uendelige, det er opp til deg å velge din vei
->
-> Med tastetrykk og linjer med kode
+
+Med tastetrykk og linjer med kode
 kan du skape en digital virkelighet
 Ingen grenser, ingen begrensninger
 Bare din fantasi og evne til å skape
->
-> Så ta tak i tastaturet og gjør deg klar
+
+Så ta tak i tastaturet og gjør deg klar
 for å lage et program som vil imponere og inspirere
 Du har mulighet til å skape noe stort
 med din programmeringskunnskap og kreativitet som kort.
-
+```
 
  Det er altså bare fantasien som setter grenser for hva du kan lage. Vel, *nesten* bare fantasien; vi har laget noen ekstra begrensninger i tillegg:
 
