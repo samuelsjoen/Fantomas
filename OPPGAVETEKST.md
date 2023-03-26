@@ -1,10 +1,30 @@
 # Semesteroppgave 2 vår 2023
 
 
-**I denne oppgaven skal du lage din helt egen applikasjon!** 
+**I denne oppgaven skal du lage din helt egen applikasjon!** Eller som ChatGPT ville sagt det hvis den fikk dikte fritt:
+
+> I et tomt dokument venter en verden
+klar til å bli skapt av dine hender
+Med Java som språk og fantasi som drivkraft
+kan du lage et program, uansett hva du har lyst til å skape
+>
+> Finn din inspirasjon og følg din visjon
+La ideene flyte og kreativiteten blomstre
+Fra enkel kalkulering til komplekse simuleringer
+mulighetene er uendelige, det er opp til deg å velge din vei
+>
+> Med tastetrykk og linjer med kode
+kan du skape en digital virkelighet
+Ingen grenser, ingen begrensninger
+Bare din fantasi og evne til å skape
+>
+> Så ta tak i tastaturet og gjør deg klar
+for å lage et program som vil imponere og inspirere
+Du har mulighet til å skape noe stort
+med din programmeringskunnskap og kreativitet som kort.
 
 
- Det er bare fantasien som setter grenser for hva du kan lage. Vel, *nesten* bare fantasien; vi har laget noen ekstra begrensninger i tillegg:
+ Det er altså bare fantasien som setter grenser for hva du kan lage. Vel, *nesten* bare fantasien; vi har laget noen ekstra begrensninger i tillegg:
 
 * Applikasjonen må være **visuell**.
   * Første prototype av applikasjonen må være laget med Java og Swing (altså samme rammeverk vi har benyttet i kurset). Etter godkjenning fra din gruppeleder kan du benytte et annet rammeverk *etter* at du har demonstrert en fungerende prototype i Swing.
@@ -47,7 +67,7 @@ Du får poeng i følgende kategorier, som hver for seg rettes som bestått/ikke 
 
 **4 poeng: modularitet.** Applikasjonen har et tilstrekkelig kompleksitetsnivå, og er oppdelt i pakker og klasser. Applikasjonen unngår statiske variabler, har god innkapsling og hensiktsmessig gjenbruk av kode der det er aktuelt. 
 
-**3 poeng: kodestil, dokumentasjon og testing.** Du har selvdokumenterende variabel- og metodenavn, pent formatert kode, beskrivende javadoc for alle metoder som er public, og du har tester for de fleste interessante public metoder i modellen. Du har også skrevet en README -fil som beskriver og forklarer programmet ditt for brukerne (på en ikke-teknisk måte).
+**3 poeng: kodestil, dokumentasjon og testing.** Du har selvdokumenterende variabel- og metodenavn, pent formatert kode, beskrivende javadoc for alle metoder som er public, og du har tester for de fleste interessante public metoder i modellen. Du har også skrevet en README -fil som beskriver og forklarer programmet ditt for brukerne (på en ikke-teknisk måte). *Alle* punktene må være oppfylt for å få poengene.
 
 **1 poeng: video.** Du har laget en kort video på under 3 minutter som demonstrerer programmet ditt til lillebror, bestemor, dine medstudenter og potensielle fremtidige arbeidsgivere. Ikke gjør det teknisk! Legg link til video i README -filen.
 
@@ -61,7 +81,7 @@ Dersom gruppeleder er usikker, vil du bli henvist videre til en samtale med en e
 
 ## Hva er «tilstrekkelig kompleksitet»?
 
-Eksempler på programmer som er *akkurat innenfor* kravet til kompleksitet når de kommer i sin aller enkleste form:
+Eksempler på programmer som er *akkurat innenfor* kravet til kompleksitet når de kommer i en enkel form:
 
 * Hangman med en ordentlig figur og sikkelig ordbok 
 * Snake
@@ -87,7 +107,7 @@ I utgangspunktet er oppgaven individuell, men dersom dere er to personer med ste
 * Siste vurdering gjøres individuelt.
 
 Det er ikke tillatt å samarbeide i større grupper.
-Dersom dere ønsker å arbeide i par, fyll ut skjema før første møte med gruppeleder`: https://skjemaker.app.uib.no/view.php?id=14579094
+Dersom dere ønsker å arbeide i par, gi beskjed om dette til deres gruppeledere, så vil én av dem bli angitt som deres gruppeleder.
 
 **Øvrig samarbeid**
 
@@ -104,6 +124,6 @@ Det er alltid tillatt å be om hjelp av og gi hjelp til noen som ikke lager det 
  Begge overnevnte punkter gjelder også kode som er skrevet ved å følge detaljerte tutorials.
 
 
-**Benytt gjerne kunstig intelligens.** AI-verktøy som CoPilot og ChatGPT er tillatt. Dersom du kopierer et større avsnitt eller en klasse fra ChatGPT, skriv en kommentar om dette.
+**Benytt gjerne kunstig intelligens.** AI-verktøy som CoPilot, Ghostwriter og ChatGPT er tillatt. Dersom du kopierer et større avsnitt eller en klasse fra ChatGPT, skriv en kommentar om dette.
  
- Uansett opphav er det er forventet at du kan forklare all koden i ditt eget repositorie.
+Uansett opphav er det er forventet at du kan forklare all koden i ditt eget repositorie.
