@@ -37,4 +37,31 @@ public class Room {
             throw new IllegalArgumentException("No available doors for " + roomNumber);
         }
     }
+
+    public static List<Painting> getPaintingsForRoom(int roomNumber, GridDimension grid) {
+        List<Painting> paintings = new ArrayList<>();
+        if (roomNumber == 1) {
+            Painting Narcissus = Painting.newPainting("medium").rotatedPainting().shiftedToWall(grid, "north").shiftedBy(0, -15);
+            paintings.add(Narcissus);
+            return paintings;
+        }
+        if (roomNumber == 2) {   
+            Painting Narcissus = Painting.newPainting("medium").shiftedToWall(grid, "north").shiftedBy(0, -15);
+            paintings.add(Narcissus);
+            return paintings;
+        }
+        if (roomNumber == 3) {   
+            Painting Narcissus = Painting.newPainting("medium").shiftedToWall(grid, "north").shiftedBy(0, -15);
+            paintings.add(Narcissus);
+            return paintings;
+        }
+        if (roomNumber == 4) {  
+            Painting Narcissus = Painting.newPainting("medium").shiftedToWall(grid, "north").shiftedBy(0, -15);
+            paintings.add(Narcissus);
+            return paintings;
+        }
+        else {
+            throw new IllegalArgumentException("No available doors for " + roomNumber);
+        }
+    }
 }

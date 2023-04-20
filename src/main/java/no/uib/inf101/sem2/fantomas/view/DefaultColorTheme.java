@@ -7,8 +7,10 @@ public class DefaultColorTheme implements ColorTheme {
     @Override
     public Color getCellColor(char character) {
         Color color = switch (character) {
-            case '-' -> new Color(245, 245, 220);
-            case 'P' -> new Color(66, 14, 40);
+            case '-' -> new Color(255, 228, 185);
+            case 'W' -> new Color(100, 0, 5);
+            case 'A' -> new Color(180, 114, 0);
+            case 'P' -> new Color(255, 228, 185);
             case 'U' -> Color.black;
             case 'R' -> Color.black;
             case 'D' -> Color.black;

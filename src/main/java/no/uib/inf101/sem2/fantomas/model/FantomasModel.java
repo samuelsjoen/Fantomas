@@ -10,7 +10,9 @@ import no.uib.inf101.sem2.fantomas.view.ViewableFantomasModel;
 import no.uib.inf101.sem2.grid.GridDimension;
 import no.uib.inf101.sem2.fantomas.model.player.Player;
 import no.uib.inf101.sem2.fantomas.model.rooms.Door;
+import no.uib.inf101.sem2.fantomas.model.rooms.Painting;
 import no.uib.inf101.sem2.fantomas.model.rooms.Room;
+import no.uib.inf101.sem2.fantomas.model.rooms.Walls;
 
 public class FantomasModel implements ViewableFantomasModel, ControllableFantomasModel {
 
@@ -53,7 +55,6 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
 
     public Player movePlayerToNewRoom() {
         changeRoom();
-        System.out.println(player.pos);
         if (player.pos.col() == 0) {
             Player shiftedPlayer = player.shiftedBy(0, board.cols()-5);
             return shiftedPlayer;
@@ -202,6 +203,15 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
     }
 
     @Override
+    public Iterable<GridCell<Character>> getWallsOnBoard() {
+        Walls walls = Walls.newWalls(this.board);
+        for (GridCell<Character> gc : walls) {
+            board.set(gc.pos(), 'W');
+        }
+        return walls;
+    }
+
+    @Override
     public List<Door> getDoorsForRoom() {
         return Room.getDoorsForRoom(roomNumber, board);
     }
@@ -213,4 +223,15 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
         }
     }
 
+    @Override
+    public void gluePaintingToBoard(Painting painting) {
+        for (GridCell<Character> gc : painting) {
+            board.set(gc.pos(), 'A');
+        }
+    }
+
+    @Override
+    public List<Painting> getPaintingsForRoom() {
+        return Room.getPaintingsForRoom(roomNumber, board);
+    }
 }
