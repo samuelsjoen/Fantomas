@@ -1,7 +1,10 @@
 package no.uib.inf101.sem2.fantomas.view;
 
+import java.util.List;
+
 import no.uib.inf101.sem2.fantomas.grid.GridCell;
 import no.uib.inf101.sem2.fantomas.model.GameState;
+import no.uib.inf101.sem2.fantomas.model.rooms.Door;
 import no.uib.inf101.sem2.grid.GridDimension;
 
 public interface ViewableFantomasModel {
@@ -10,7 +13,9 @@ public interface ViewableFantomasModel {
     // Allows the tiles on the board to be iterated through
     public Iterable<GridCell<Character>> getTilesOnBoard();
     public Iterable<GridCell<Character>> getPlayerOnBoard();
-    public Iterable<GridCell<Character>> getDoorOnBoard();
+    public List<Door> getDoorsForRoom();
+    public String getRoomName();
+    public void glueDoorToBoard(Door door);
     // Returns the current game state
     public GameState getGameState();
     // Moves the player in the direction given by the parameters if the move is legal

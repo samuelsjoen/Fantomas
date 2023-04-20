@@ -1,4 +1,4 @@
-package no.uib.inf101.sem2.fantomas.model;
+package no.uib.inf101.sem2.fantomas.model.rooms;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -9,9 +9,9 @@ import no.uib.inf101.sem2.fantomas.grid.GridCell;
 
 public class Door implements Iterable<GridCell<Character>> {
 
-    public String direction;
-    public boolean[][] orientation;
-    public CellPosition pos;
+    String direction;
+    boolean[][] orientation;
+    CellPosition pos;
 
     public Door(String direction, boolean[][] orientation, CellPosition pos) {
         super();
@@ -23,15 +23,19 @@ public class Door implements Iterable<GridCell<Character>> {
     public static boolean[][] newOrientation(String direction) {
         boolean[][] orientation = switch (direction) {
 
-            case "Vertical" -> new boolean[][] {
+            case "vertical" -> new boolean[][] {
+                { true },
+                { true },
+                { true },
+                { true },
                 { true },
                 { true },
                 { true },
                 { true },
                 { true }
             };
-            case "Horizontal" -> new boolean[][] {
-                { true, true, true, true, true }
+            case "horizontal" -> new boolean[][] {
+                { true, true, true, true, true, true, true, true, true }
             };
             default -> throw new IllegalArgumentException("No available door for " + direction);
         };
@@ -39,7 +43,7 @@ public class Door implements Iterable<GridCell<Character>> {
     }
 
     // Creates new door based on the input symbol
-    public static Door newDoor(String direction) {
+    public static Door createNew(String direction) {
         return new Door(direction, newOrientation(direction), new CellPosition(0, 0));
     }
 
@@ -52,17 +56,28 @@ public class Door implements Iterable<GridCell<Character>> {
 
     // Shifts the door to the wall
     public Door shiftedToWall(GridDimension grid, String wall) {
-        if (direction == "Vertical") {
-            if (wall == "west") { 
-                int newCol = -4;
-            }
-            if (wall == "east") {
-                int newCol = pos.col();
-            }
+
+        int middleCol = grid.cols() / 2 - 4;
+        int middleRow = grid.rows() / 2 - 4;
+        
+        if (wall == "west") { 
+            Door shiftedDoor = shiftedBy(middleRow, 0);
+            return shiftedDoor;
         }
-        int middleCol = grid.cols() / 2 - adjustmentForDoorSize;
-        int middleRow = grid.rows() / 2 - adjustmentForDoorSize;
-        Door shiftedDoor = shiftedBy(middleRow, middleCol);
+        if (wall == "east") {
+            Door shiftedDoor = shiftedBy(middleRow, grid.cols()-1);
+            return shiftedDoor;
+        }
+        if (wall == "north") {
+            Door shiftedDoor = shiftedBy(0, middleCol);
+            return shiftedDoor;
+        }
+        if (wall == "south") {
+            Door shiftedDoor = shiftedBy(grid.cols()-1, middleCol);
+            return shiftedDoor;
+        }
+
+        Door shiftedDoor = shiftedBy(0, 0);
         return shiftedDoor;
     }
 
@@ -73,7 +88,7 @@ public class Door implements Iterable<GridCell<Character>> {
             for (int col = 0; col < orientation[0].length; col++) {
                 if (orientation[row][col] == true) {
                     CellPosition cellPos = new CellPosition(pos.row() + row, pos.col() + col);
-                    GridCell<Character> cell = new GridCell<Character>(cellPos, 'W');
+                    GridCell<Character> cell = new GridCell<Character>(cellPos, 'P');
                     orientations.add(cell);
                 }
             }

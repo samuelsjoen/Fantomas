@@ -83,7 +83,7 @@ public class Player implements Iterable<GridCell<Character>> {
 
     // Rotates the player
     public Player rotatedPlayer(char newOrientation) {
-        Player rotatedPlayer = new Player(symbol, newOrientation(newOrientation), pos);
+        Player rotatedPlayer = new Player(newOrientation, newOrientation(newOrientation), pos);
         return rotatedPlayer;
     }
 

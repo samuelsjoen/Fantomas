@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 import no.uib.inf101.sem2.fantomas.grid.GridCell;
 import no.uib.inf101.sem2.fantomas.model.GameState;
+import no.uib.inf101.sem2.fantomas.model.rooms.Door;
 
 
 public class FantomasView extends JPanel {
@@ -66,11 +67,11 @@ public class FantomasView extends JPanel {
             CellPositionToPixelConverter gridPixel = new CellPositionToPixelConverter(board, model.getDimension(), 0);
             drawCells(g2, model.getTilesOnBoard(), gridPixel, theme);
             drawCells(g2, model.getPlayerOnBoard(), gridPixel, theme);
-            drawCells(g2, model.getDoorOnBoard(), gridPixel, theme);
+            drawDoors(gridPixel, g2);
             g2.setColor(theme.textColor3());
             g2.setFont(new Font("Arial", Font.BOLD, 15));
-            // g2.drawString("SCORE: "+model.getScore(), 5, this.getHeight()-23);
-            // g2.drawString("LEVEL: "+model.getDifficulty(), 5, this.getHeight()-7);
+            // g2.drawString("ROOM: "+model.get(), 5, this.getHeight()-23);
+            g2.drawString("ROOM: "+model.getRoomName(), 5, this.getHeight()-7);
         }
 
         // Draws the pause screen as well as denoting how to return to the game
@@ -92,9 +93,14 @@ public class FantomasView extends JPanel {
         for (GridCell<Character> grid : gc) {
             Rectangle2D cell = cptopixel.getBoundsForCell(grid.pos());
             g2.setColor(theme.getCellColor(grid.value()));
-            // System.out.println(theme.getCellColor(grid.value()));
             g2.fill(cell);
-            // System.out.println(grid.value());
         }
+    }
+
+    private void drawDoors(CellPositionToPixelConverter gridPixel, Graphics2D g2) {
+        for (Door door : model.getDoorsForRoom()) {
+            model.glueDoorToBoard(door);
+            drawCells(g2, door, gridPixel, theme);
+        }     
     }
 }
