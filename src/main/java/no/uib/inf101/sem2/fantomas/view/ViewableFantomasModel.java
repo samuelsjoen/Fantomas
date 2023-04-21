@@ -15,6 +15,8 @@ public interface ViewableFantomasModel {
     public Iterable<GridCell<Character>> getTilesOnBoard();
     public Iterable<GridCell<Character>> getPlayerOnBoard();
     public List<Door> getDoorsForRoom();
+    public String getPaintingPath();
+    public String getPaintingInfo();
     public List<Painting> getPaintingsForRoom();
     public String getRoomName();
     public void glueDoorToBoard(Door door);

@@ -5,9 +5,11 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
+import no.uib.inf101.sem2.fantomas.view.Inf101Graphics;
 import no.uib.inf101.sem2.fantomas.grid.GridCell;
 import no.uib.inf101.sem2.fantomas.model.GameState;
 import no.uib.inf101.sem2.fantomas.model.rooms.Door;
@@ -52,7 +54,7 @@ public class FantomasView extends JPanel {
             g2.fill(startScreen);
             g2.setColor(theme.textColor());
             g2.setFont(new Font("Arial", Font.BOLD, 50));
-            g2.drawString("FANTOMAS", this.getWidth()/2-90, this.getHeight()/2-55);
+            g2.drawString("FANTOMAS", this.getWidth()/2-130, this.getHeight()/2-55);
             g2.setColor(theme.textColor3());
             g2.setFont(new Font("Arial", Font.BOLD, 20));
             g2.drawString("Press key", this.getWidth()/2-45, this.getHeight()/2);
@@ -92,7 +94,13 @@ public class FantomasView extends JPanel {
         }
 
         if (model.getGameState() == GameState.PAINTINGVIEW) {
-
+            showPainting(g2);
+            g2.setColor(theme.textColor());
+            g2.setFont(new Font("Arial", Font.BOLD, 20));
+            g2.drawString("Press key", this.getWidth()/2-50, this.getHeight()-40);
+            g2.drawString("'down' to resume", this.getWidth()/2-80, this.getHeight()-20);
+            String paintingInfo = model.getPaintingInfo();
+            g2.drawString(paintingInfo, (this.getWidth()/2)-(paintingInfo.length()*10/2), this.getHeight()/10);
         }
     }
 
@@ -118,5 +126,12 @@ public class FantomasView extends JPanel {
             model.gluePaintingToBoard(painting);
             drawCells(g2, painting, gridPixel, theme);
         }     
+    }
+
+    private void showPainting(Graphics2D g2) {
+        BufferedImage image = Inf101Graphics.loadImageFromResources(model.getPaintingPath());
+        double x = getWidth()/2;
+        double y = getHeight()/2;
+        Inf101Graphics.drawCenteredImage(g2, image, x, y, 0.5);
     }
 }

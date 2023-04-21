@@ -19,6 +19,7 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
     public GameState gameState;
     public Player player;
     public int roomNumber;
+    public char currentPaintingNumber;
 
     public FantomasModel(FantomasBoard board) {
         super();
@@ -26,6 +27,7 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
         this.board = board;
         this.player = Player.newPlayer('U').shiftedToCenter(board);
         this.roomNumber = 1;
+        this.currentPaintingNumber = '0';
     }
 
     @Override
@@ -40,7 +42,6 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
 
     @Override
     public boolean movePlayer(int deltaRow, int deltaCol) {
-        System.out.println(board.prettyString());
         Player shiftedPlayer = player.shiftedBy(deltaRow, deltaCol);
         if (isLegalMove(shiftedPlayer) == true) {
             player = shiftedPlayer;
@@ -57,16 +58,6 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
             setGameState(GameState.PAINTINGVIEW);
         }
     }
-
-    // public Painting getNearbyPainting() {
-    //     for (Painting painting : getPaintingsForRoom()) {
-    //         if (painting.getPos().row() == player.pos.row()-1) {
-    //             if (painting.getPos().col()+painting.getSize() < player.pos.col()) {
-    //                 return painting;
-    //             }
-    //         }
-    //     } 
-    // }
 
     public Player movePlayerToNewRoom() {
         changeRoom();
@@ -177,7 +168,6 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
     public boolean isByDoor(Player shiftedPlayer) {
         int count = 0;
         for (GridCell<Character> gc : shiftedPlayer) {
-            System.out.println(board.get(new CellPosition(gc.pos().row(), gc.pos().col())));
             if (board.get(new CellPosition(gc.pos().row(), gc.pos().col())) == 'P') {
                 count += 1;
             }
@@ -201,24 +191,40 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
 
     public boolean isByPainting() {
         CellPosition newPos = getCellPositionInFacingDirection();
-        Player shiftedPlayer = player.shiftedBy(newPos.row(), newPos.row());
+        Player shiftedPlayer = player.shiftedBy(newPos.row(), newPos.col());
         char[] paintingNumbers = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
         int count = 0;
         for (GridCell<Character> gc : shiftedPlayer) {
             for (char number : paintingNumbers) {
-                System.out.println(board.get(new CellPosition(gc.pos().row(), gc.pos().col())));
                 if (board.get(new CellPosition(gc.pos().row(), gc.pos().col())) == number) {
                     count += 1;
+                    currentPaintingNumber = number;
                 }
             }
         }
-        System.out.println(count);
         if (count == 3) {
             return true;
         }
         return false;
     }
 
+    public String getPaintingPath() {
+        for (Painting painting : getPaintingsForRoom()) {
+            if (painting.getNumber() == currentPaintingNumber) {
+                return painting.getPath();
+            }
+        }
+        throw new IllegalArgumentException("No path found for painting");
+    }
+
+    public String getPaintingInfo() {
+        for (Painting painting : getPaintingsForRoom()) {
+            if (painting.getNumber() == currentPaintingNumber) {
+                return painting.getPaintinginfo();
+            }
+        }
+        throw new IllegalArgumentException("No info found for painting");
+    }
 
     // Checks if the charaacters position is legal and returns a boolean value in accordance
     public boolean isLegalMove(Player player) {

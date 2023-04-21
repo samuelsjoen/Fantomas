@@ -80,6 +80,14 @@ public class FantomasController implements KeyListener {
                 model.setGameState(GameState.ACTIVE_GAME);
                 song.doUnpauseMidiSounds();
             }
+            fantomasView.repaint();
+        }
+
+        else if (model.getGameState() == GameState.PAINTINGVIEW) {
+            if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                model.setGameState(GameState.ACTIVE_GAME);
+            }
+            fantomasView.repaint();
         }
     }
 
