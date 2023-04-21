@@ -20,4 +20,5 @@ public interface ColorTheme {
     public Color textColor3();
     // Returns the color for the pause screen
     public Color getPauseColor();
+    public Color getPaintingColor();
 }

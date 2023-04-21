@@ -9,12 +9,21 @@ public class DefaultColorTheme implements ColorTheme {
         Color color = switch (character) {
             case '-' -> new Color(255, 228, 185);
             case 'W' -> new Color(100, 0, 5);
-            case 'A' -> new Color(180, 114, 0);
             case 'P' -> new Color(255, 228, 185);
             case 'U' -> Color.black;
             case 'R' -> Color.black;
             case 'D' -> Color.black;
             case 'L' -> Color.black;
+            case '0' -> getPaintingColor();
+            case '1' -> getPaintingColor();
+            case '2' -> getPaintingColor();
+            case '3' -> getPaintingColor();
+            case '4' -> getPaintingColor();
+            case '5' -> getPaintingColor();
+            case '6' -> getPaintingColor();
+            case '7' -> getPaintingColor();
+            case '8' -> getPaintingColor();
+            case '9' -> getPaintingColor();
             default -> throw new IllegalArgumentException("No available color for " + character);
         };
         return color;
@@ -65,4 +74,8 @@ public class DefaultColorTheme implements ColorTheme {
         return Color.white;
     }
 
+    @Override
+    public Color getPaintingColor() {
+        return new Color(180, 114, 0);
+    }
 }

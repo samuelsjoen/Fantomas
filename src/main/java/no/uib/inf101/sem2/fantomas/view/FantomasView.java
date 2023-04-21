@@ -90,6 +90,10 @@ public class FantomasView extends JPanel {
             g2.drawString("Press key", this.getWidth()/2-50, this.getHeight()-40);
             g2.drawString("'down' to resume", this.getWidth()/2-80, this.getHeight()-20);
         }
+
+        if (model.getGameState() == GameState.PAINTINGVIEW) {
+
+        }
     }
 
     // Helping method to draw the cells that make up the board as well as the player and environment

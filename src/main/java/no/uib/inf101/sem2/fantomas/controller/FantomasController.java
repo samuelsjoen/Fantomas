@@ -51,6 +51,8 @@ public class FantomasController implements KeyListener {
             } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                 model.setGameState(GameState.PAUSE);
                 song.doPauseMidiSounds();
+            } else if (e.getKeyCode() == KeyEvent.VK_E) {
+                model.viewPainting();
             }
             fantomasView.repaint();
         }

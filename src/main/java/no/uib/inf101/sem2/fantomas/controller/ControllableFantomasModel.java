@@ -13,4 +13,5 @@ public interface ControllableFantomasModel {
     public void setGameState(GameState state);
     // Resets the board
     public void clearBoard();
+    public void viewPainting();
 }

@@ -5,5 +5,6 @@ public enum GameState {
     ACTIVE_GAME,
     GAME_OVER,
     START_SCREEN,
-    PAUSE
+    PAUSE,
+    PAINTINGVIEW
 }

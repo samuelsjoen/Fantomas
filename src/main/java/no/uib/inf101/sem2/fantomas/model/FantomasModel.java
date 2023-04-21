@@ -8,7 +8,6 @@ import no.uib.inf101.sem2.fantomas.controller.ControllableFantomasModel;
 import no.uib.inf101.sem2.fantomas.grid.GridCell;
 import no.uib.inf101.sem2.fantomas.view.ViewableFantomasModel;
 import no.uib.inf101.sem2.grid.GridDimension;
-import no.uib.inf101.sem2.fantomas.model.player.Player;
 import no.uib.inf101.sem2.fantomas.model.rooms.Door;
 import no.uib.inf101.sem2.fantomas.model.rooms.Painting;
 import no.uib.inf101.sem2.fantomas.model.rooms.Room;
@@ -41,6 +40,7 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
 
     @Override
     public boolean movePlayer(int deltaRow, int deltaCol) {
+        System.out.println(board.prettyString());
         Player shiftedPlayer = player.shiftedBy(deltaRow, deltaCol);
         if (isLegalMove(shiftedPlayer) == true) {
             player = shiftedPlayer;
@@ -52,6 +52,21 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
         return false;   
     }
 
+    public void viewPainting() {
+        if (isByPainting() == true) {
+            setGameState(GameState.PAINTINGVIEW);
+        }
+    }
+
+    // public Painting getNearbyPainting() {
+    //     for (Painting painting : getPaintingsForRoom()) {
+    //         if (painting.getPos().row() == player.pos.row()-1) {
+    //             if (painting.getPos().col()+painting.getSize() < player.pos.col()) {
+    //                 return painting;
+    //             }
+    //         }
+    //     } 
+    // }
 
     public Player movePlayerToNewRoom() {
         changeRoom();
@@ -162,10 +177,42 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
     public boolean isByDoor(Player shiftedPlayer) {
         int count = 0;
         for (GridCell<Character> gc : shiftedPlayer) {
+            System.out.println(board.get(new CellPosition(gc.pos().row(), gc.pos().col())));
             if (board.get(new CellPosition(gc.pos().row(), gc.pos().col())) == 'P') {
                 count += 1;
             }
         }
+        if (count == 3) {
+            return true;
+        }
+        return false;
+    }
+
+    public CellPosition getCellPositionInFacingDirection() {
+        CellPosition pos = switch (player.getSymbol()) {
+            case 'U' -> new CellPosition(-1, 0);
+            case 'D' -> new CellPosition(1, 0);
+            case 'R' -> new CellPosition(0, 1);
+            case 'L' -> new CellPosition(0, -1);
+            default -> throw new IllegalArgumentException("No symbol such as "+ player.getSymbol());
+        };
+        return pos;
+    }
+
+    public boolean isByPainting() {
+        CellPosition newPos = getCellPositionInFacingDirection();
+        Player shiftedPlayer = player.shiftedBy(newPos.row(), newPos.row());
+        char[] paintingNumbers = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+        int count = 0;
+        for (GridCell<Character> gc : shiftedPlayer) {
+            for (char number : paintingNumbers) {
+                System.out.println(board.get(new CellPosition(gc.pos().row(), gc.pos().col())));
+                if (board.get(new CellPosition(gc.pos().row(), gc.pos().col())) == number) {
+                    count += 1;
+                }
+            }
+        }
+        System.out.println(count);
         if (count == 3) {
             return true;
         }
@@ -226,7 +273,7 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
     @Override
     public void gluePaintingToBoard(Painting painting) {
         for (GridCell<Character> gc : painting) {
-            board.set(gc.pos(), 'A');
+            board.set(gc.pos(), painting.getNumber());
         }
     }
 

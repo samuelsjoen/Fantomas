@@ -1,4 +1,4 @@
-package no.uib.inf101.sem2.fantomas.model.player;
+package no.uib.inf101.sem2.fantomas.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -58,6 +58,10 @@ public class Player implements Iterable<GridCell<Character>> {
             default -> throw new IllegalArgumentException("No available player for " + symbol);
         };
         return orientation;
+    }
+
+    public char getSymbol() {
+        return this.symbol;
     }
 
     // Creates new player based on the input symbol

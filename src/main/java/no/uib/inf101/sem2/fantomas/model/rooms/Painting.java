@@ -9,21 +9,23 @@ import no.uib.inf101.sem2.fantomas.grid.CellPosition;
 import no.uib.inf101.sem2.fantomas.grid.GridCell;
 
 public class Painting implements Iterable<GridCell<Character>> {
-    String size;
+    int size;
     boolean[][] paintingGrid;
     CellPosition pos;
+    char number;
 
-    public Painting(String size, boolean[][] paintingGrid, CellPosition pos) {
+    public Painting(int size, boolean[][] paintingGrid, CellPosition pos, char number) {
         super();
         this.size = size;
         this.paintingGrid = paintingGrid;
         this.pos = pos;
+        this.number = number;
     }
 
-    public static Painting newPainting(String size) {
+    public static Painting newPainting(int size, char number) {
         boolean[][] paintingGrid = switch (size) {
 
-            case "small" -> new boolean[][] {
+            case 7-> new boolean[][] {
                 { true },
                 { true },
                 { true },
@@ -32,7 +34,7 @@ public class Painting implements Iterable<GridCell<Character>> {
                 { true },
                 { true }
             };
-            case "medium" -> new boolean[][] {
+            case 9 -> new boolean[][] {
                 { true },
                 { true },
                 { true },
@@ -43,7 +45,7 @@ public class Painting implements Iterable<GridCell<Character>> {
                 { true },
                 { true }
             };
-            case "large" -> new boolean[][] {
+            case 11 -> new boolean[][] {
                 { true },
                 { true },
                 { true },
@@ -58,29 +60,41 @@ public class Painting implements Iterable<GridCell<Character>> {
             };
             default -> throw new IllegalArgumentException("No available painting for " + size);
         };
-        return new Painting(size, paintingGrid, new CellPosition(0, 0));
+        return new Painting(size, paintingGrid, new CellPosition(0, 0), number);
+    }
+
+    public CellPosition getPos() {
+        return this.pos;
+    }
+
+    public int getSize() {
+        return this.size;
+    } 
+
+    public char getNumber() {
+        return this.number;
     }
 
     public Painting rotatedPainting() {
         boolean[][] rotatedPaintingGrid = switch (size) {
-            case "small" -> new boolean[][] {
+            case 7 -> new boolean[][] {
                 { true, true, true, true, true, true, true }
             };
-            case "medium" -> new boolean[][] {
+            case 9 -> new boolean[][] {
                 { true, true, true, true, true, true, true, true, true }
             };
-            case "large" -> new boolean[][] {
+            case 11 -> new boolean[][] {
                 { true, true, true, true, true, true, true, true, true, true, true }
             };
             default -> throw new IllegalArgumentException("No available painting for " + size);
         };
-        return new Painting(size, rotatedPaintingGrid, pos);
+        return new Painting(size, rotatedPaintingGrid, pos, number);
     }
 
     // Shifts the player in the direction indicated in the parameters
     public Painting shiftedBy(int deltaRow, int deltaCol) {
         CellPosition shiftedPos = new CellPosition(pos.row() + deltaRow, pos.col() + deltaCol);
-        Painting shiftedPainting = new Painting(size, paintingGrid, shiftedPos);
+        Painting shiftedPainting = new Painting(size, paintingGrid, shiftedPos, number);
         return shiftedPainting;
     }
 
@@ -118,7 +132,7 @@ public class Painting implements Iterable<GridCell<Character>> {
             for (int col = 0; col < paintingGrid[0].length; col++) {
                 if (paintingGrid[row][col] == true) {
                     CellPosition cellPos = new CellPosition(pos.row() + row, pos.col() + col);
-                    GridCell<Character> cell = new GridCell<Character>(cellPos, 'A');
+                    GridCell<Character> cell = new GridCell<Character>(cellPos, number);
                     paintingGrids.add(cell);
                 }
             }
