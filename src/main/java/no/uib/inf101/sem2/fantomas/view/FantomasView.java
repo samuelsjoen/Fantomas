@@ -1,3 +1,5 @@
+// Inspired by TetrisView.java from Tetris
+
 package no.uib.inf101.sem2.fantomas.view;
 
 import java.awt.Dimension;
@@ -6,9 +8,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-
 import javax.swing.JPanel;
-
 import no.uib.inf101.sem2.fantomas.grid.GridCell;
 import no.uib.inf101.sem2.fantomas.model.GameState;
 import no.uib.inf101.sem2.fantomas.model.rooms.Door;
@@ -17,13 +17,12 @@ import no.uib.inf101.sem2.fantomas.model.rooms.Painting;
 
 public class FantomasView extends JPanel {
 
-    ViewableFantomasModel model;
-    ColorTheme theme;
+    private ViewableFantomasModel model;
+    private ColorTheme theme;
 
     int dimensionX = 750;
     int dimensionY = 750;
 
-    // Constructor
     public FantomasView(ViewableFantomasModel model) {
         this.theme = new DefaultColorTheme();
         this.setBackground(theme.getBackgroundColor());
@@ -33,9 +32,9 @@ public class FantomasView extends JPanel {
 
     }
 
-    // The paintComponent method is called by the Java Swing framework every time
-    // either the window opens or resizes, or we call .repaint() on this object.
-    // Note: NEVER call paintComponent directly yourself
+    /**The paintComponent method is called by the Java Swing framework every time
+    *either the window opens or resizes, or we call .repaint() on this object.
+    *Note: NEVER call paintComponent directly yourself*/
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -43,22 +42,15 @@ public class FantomasView extends JPanel {
         drawGame(g2);
     }
 
-    // Draws the different components that make up the game
+    /**Draws the different components that make up the game*/
     private void drawGame(Graphics2D g2) {
 
-        // Draws the start screen and denotes how to start the screen
+        //Draws the start screen and denotes how to start the screen
         if (model.getGameState() == GameState.START_SCREEN) {
-            Rectangle2D startScreen = new Rectangle2D.Double(5, 5, (this.getWidth() - 5), (this.getHeight() - 5));
-            g2.setColor(theme.getStartScreenColor());
-            g2.fill(startScreen);
-            g2.setColor(theme.textColor());
-            g2.setFont(new Font("Arial", Font.BOLD, 50));
-            g2.drawString("FANTOMAS", this.getWidth()/2-130, this.getHeight()/2-55);
-            g2.setColor(theme.textColor2());
-            g2.setFont(new Font("Arial", Font.BOLD, 20));
-            g2.drawString("Press key", this.getWidth()/2-40, this.getHeight()/2);
-            g2.drawString("'down' to begin", this.getWidth()/2-70, this.getHeight()/2+20);
-
+            BufferedImage image = Inf101Graphics.loadImageFromResources("/fantomas.jpg");
+            double x = getWidth()/2;
+            double y = getHeight()/2;
+            Inf101Graphics.drawCenteredImage(g2, image, x, y, 0.75);
         }
 
         // Draws the game screen including the board, the player.
@@ -93,6 +85,7 @@ public class FantomasView extends JPanel {
             g2.drawString("'down' to resume", this.getWidth()/2-80, this.getHeight()-20);
         }
 
+        // Draws the paintingview as well as denoting how to return to the game
         if (model.getGameState() == GameState.PAINTINGVIEW) {
             Rectangle2D paintViewScreen = new Rectangle2D.Double(5, 5, (this.getWidth() - 5), (this.getHeight() - 5));
             g2.setColor(theme.getPaintViewColor());
@@ -107,7 +100,7 @@ public class FantomasView extends JPanel {
         }
     }
 
-    // Helping method to draw the cells that make up the board as well as the player and environment
+    /**Helping method to draw the cells that make up the board as well as the player and environment*/
     private void drawCells(Graphics2D g2, Iterable<GridCell<Character>> gc, CellPositionToPixelConverter cptopixel, ColorTheme theme) {
         for (GridCell<Character> grid : gc) {
             Rectangle2D cell = cptopixel.getBoundsForCell(grid.pos());
@@ -116,6 +109,7 @@ public class FantomasView extends JPanel {
         }
     }
 
+    /**Helping method to draw the cells that make up the doors*/
     private void drawDoors(CellPositionToPixelConverter gridPixel, Graphics2D g2) {
         for (Door door : model.getDoorsForRoom()) {
             model.glueDoorToBoard(door);
@@ -123,7 +117,7 @@ public class FantomasView extends JPanel {
         }     
     }
 
-    
+    /**Helping method to draw the cells that make up the paintings*/    
     private void drawPaintings(CellPositionToPixelConverter gridPixel, Graphics2D g2) {
         for (Painting painting : model.getPaintingsForRoom()) {
             model.gluePaintingToBoard(painting);
@@ -131,14 +125,11 @@ public class FantomasView extends JPanel {
         }     
     }
 
+    /**Helping method to get the images for paintings*/
     private void showPainting(Graphics2D g2) {
         BufferedImage image = Inf101Graphics.loadImageFromResources(model.getPaintingPath());
         double x = getWidth()/2;
         double y = getHeight()/2;
         Inf101Graphics.drawCenteredImage(g2, image, x, y, 0.5);
-    }
-
-    private void drawCarpet(CellPositionToPixelConverter gridPixel, Graphics2D g2) {
-        
     }
 }

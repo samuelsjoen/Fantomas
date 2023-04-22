@@ -1,11 +1,10 @@
+// Loaned from Torstein Strømme from Tetris
+
 package no.uib.inf101.sem2.fantomas.midi;
 
 import java.io.InputStream;
-import java.util.Random;
-
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Sequencer;
-
 /**
  * Play the Fantomaas music. Sample usage:
  * <code>
@@ -14,21 +13,13 @@ import javax.sound.midi.Sequencer;
  * </code>
  */
 public class FantomasSong implements Runnable {
-    private static final String FANTOMASMUSIC = randomMidiSound();
+    private static final String FANTOMASMUSIC = "beethoven.midi";
     private Sequencer sequencer;
 
     @Override
     public void run() {
         InputStream song = FantomasSong.class.getClassLoader().getResourceAsStream(FANTOMASMUSIC);
         this.doPlayMidi(song, true);
-    }
-
-    // Chooses between random midi songs
-    private static String randomMidiSound() {
-        final String[] songs = {"vivaldi.midi", "chopin.midi", "mozart.midi", "dvorak.midi", "twin_peaks.midi",};
-        Random random = new Random();
-        int index = random.nextInt(songs.length);
-        return songs[index];
     }
 
     private void doPlayMidi(final InputStream is, final boolean loop) {

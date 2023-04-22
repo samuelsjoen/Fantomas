@@ -1,32 +1,35 @@
-package no.uib.inf101.sem2.fantomas.model.rooms;
+// Inspired by tetromino.java from Tetris
 
-import no.uib.inf101.sem2.grid.GridDimension;
+package no.uib.inf101.sem2.fantomas.model.rooms;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import no.uib.inf101.sem2.fantomas.grid.CellPosition;
 import no.uib.inf101.sem2.fantomas.grid.GridCell;
+import no.uib.inf101.sem2.fantomas.grid.GridDimension;
 
 public class Painting implements Iterable<GridCell<Character>> {
-    int size;
-    boolean[][] paintingGrid;
-    CellPosition pos;
-    char number;
-    String path;
-    String paintingInfo;
+    private int size;
+    private boolean[][] paintingGrid;
+    private CellPosition pos;
+    private char number;
+    private String path;
+    private String info;
 
-    public Painting(int size, boolean[][] paintingGrid, CellPosition pos, char number, String path, String paintingInfo) {
+    private Painting(int size, boolean[][] paintingGrid, CellPosition pos, char number, String path, String info) {
         super();
         this.size = size;
         this.paintingGrid = paintingGrid;
         this.pos = pos;
         this.number = number;
         this.path = path;
-        this.paintingInfo = paintingInfo;
+        this.info = info;
     }
 
-    public static Painting newPainting(int size, char number, String path, String paintingInfo) {
+    /**Creates a new painting with given size, which number painting it is in the room, the path to the image
+     * file used to display the painting as well as the info about painting (arist, name and date)
+     */
+    public static Painting newPainting(int size, char number, String path, String info) {
         boolean[][] paintingGrid = switch (size) {
 
             case 7-> new boolean[][] {
@@ -64,29 +67,10 @@ public class Painting implements Iterable<GridCell<Character>> {
             };
             default -> throw new IllegalArgumentException("No available painting for " + size);
         };
-        return new Painting(size, paintingGrid, new CellPosition(0, 0), number, path, paintingInfo);
+        return new Painting(size, paintingGrid, new CellPosition(0, 0), number, path, info);
     }
 
-    public CellPosition getPos() {
-        return this.pos;
-    }
-
-    public int getSize() {
-        return this.size;
-    } 
-
-    public char getNumber() {
-        return this.number;
-    }
-
-    public String getPath() {
-        return this.path;
-    }
-
-    public String getPaintinginfo() {
-        return this.paintingInfo;
-    }
-
+    /**Rotates the painting 90 degrees*/
     public Painting rotatedPainting() {
         boolean[][] rotatedPaintingGrid = switch (size) {
             case 7 -> new boolean[][] {
@@ -100,17 +84,17 @@ public class Painting implements Iterable<GridCell<Character>> {
             };
             default -> throw new IllegalArgumentException("No available painting for " + size);
         };
-        return new Painting(size, rotatedPaintingGrid, pos, number, path, paintingInfo);
+        return new Painting(size, rotatedPaintingGrid, pos, number, path, info);
     }
 
-    // Shifts the player in the direction indicated in the parameters
+    /**Shifts the painting in the direction given within the parameters*/
     public Painting shiftedBy(int deltaRow, int deltaCol) {
         CellPosition shiftedPos = new CellPosition(pos.row() + deltaRow, pos.col() + deltaCol);
-        Painting shiftedPainting = new Painting(size, paintingGrid, shiftedPos, number, path, paintingInfo);
+        Painting shiftedPainting = new Painting(size, paintingGrid, shiftedPos, number, path, info);
         return shiftedPainting;
     }
 
-    // Shifts the painting to the wall
+    /**Shifts the painting to the wall within given grid*/
     public Painting shiftedToWall(GridDimension grid, String wall) {
 
         int middleCol = grid.cols() / 2 - 4;
@@ -135,6 +119,25 @@ public class Painting implements Iterable<GridCell<Character>> {
         else {
             throw new IllegalArgumentException("No such wall as " + wall);
         }
+    }
+    
+
+    /**Returns a copy of the paintings number*/
+    public char getNumber() {
+        char paintingNumber = this.number;
+        return paintingNumber;
+    }
+
+    /**Returns a copy of the paintings image file path*/
+    public String getPath() {
+        String paintingPath = this.path;
+        return paintingPath;
+    }
+
+    /**Returns a copy of the paintings info*/
+    public String getPaintinginfo() {
+        String paintingInfo = this.info;
+        return paintingInfo;
     }
 
     @Override

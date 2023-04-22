@@ -1,11 +1,10 @@
+// Loaned from Tetris
+
 package no.uib.inf101.sem2.fantomas.grid;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import no.uib.inf101.sem2.grid.IGrid;
-
 
 public class Grid<E> implements IGrid<E> {
     private List<List<E>> gridList;

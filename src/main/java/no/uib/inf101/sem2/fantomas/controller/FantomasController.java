@@ -1,9 +1,9 @@
-package no.uib.inf101.sem2.fantomas.controller;
+//Inspired by TetrisController from Tetris
 
+package no.uib.inf101.sem2.fantomas.controller;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import no.uib.inf101.sem2.fantomas.model.GameState;
 import no.uib.inf101.sem2.fantomas.midi.FantomasSong;
 import no.uib.inf101.sem2.fantomas.view.FantomasView;
@@ -20,6 +20,7 @@ public class FantomasController implements KeyListener {
         this.song = new FantomasSong();
         fantomasView.addKeyListener(this);
         fantomasView.setFocusable(true);
+        song.run();
     }
 
     @Override
@@ -81,6 +82,7 @@ public class FantomasController implements KeyListener {
             fantomasView.repaint();
         }
 
+        // Actions for keys pressed when the game is in paintingview
         else if (model.getGameState() == GameState.PAINTINGVIEW) {
             if (e.getKeyCode() == KeyEvent.VK_DOWN) {
                 model.setGameState(GameState.ACTIVE_GAME);

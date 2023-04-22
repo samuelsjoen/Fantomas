@@ -32,7 +32,16 @@ public class DefaultColorTheme implements ColorTheme {
         };
         return color;
     }
+    
+    @Override
+    public Color getDoorColor() {
+        return Color.white;
+    }
 
+    @Override
+    public Color getPaintingColor() {
+        return new Color(180, 114, 0);
+    }
     @Override
     public Color getFrameColor() {
         return Color.white;
@@ -49,13 +58,23 @@ public class DefaultColorTheme implements ColorTheme {
     }
 
     @Override
-    public Color textColor() {
-        return new Color(255, 222, 147);
+    public Color getStartScreenColor() {
+        return new Color(93, 85, 0);
     }
 
     @Override
-    public Color getStartScreenColor() {
-        return new Color(93, 85, 0);
+    public Color getPauseColor() {
+        return Color.lightGray;
+    }
+
+    @Override
+    public Color getPaintViewColor() {
+        return Color.darkGray;
+    }
+
+    @Override
+    public Color textColor() {
+        return new Color(255, 222, 147);
     }
 
     @Override
@@ -66,25 +85,5 @@ public class DefaultColorTheme implements ColorTheme {
     @Override
     public Color textColor3() {
         return Color.black;
-    }
-
-    @Override
-    public Color getPauseColor() {
-        return Color.lightGray;
-    }
-
-    @Override
-    public Color getDoorColor() {
-        return Color.white;
-    }
-
-    @Override
-    public Color getPaintingColor() {
-        return new Color(180, 114, 0);
-    }
-
-    @Override
-    public Color getPaintViewColor() {
-        return Color.darkGray;
     }
 }

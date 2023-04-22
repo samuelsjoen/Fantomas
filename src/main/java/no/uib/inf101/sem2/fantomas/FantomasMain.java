@@ -1,13 +1,10 @@
 package no.uib.inf101.sem2.fantomas;
 
 import javax.swing.JFrame;
-
 import no.uib.inf101.sem2.fantomas.controller.FantomasController;
 import no.uib.inf101.sem2.fantomas.model.FantomasBoard;
 import no.uib.inf101.sem2.fantomas.model.FantomasModel;
 import no.uib.inf101.sem2.fantomas.view.FantomasView;
-
-
 
 public class FantomasMain 
 {

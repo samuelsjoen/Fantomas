@@ -1,7 +1,8 @@
+// Based on TetrisBoard.java from Tetris
+
 package no.uib.inf101.sem2.fantomas.model;
 
 import java.util.ArrayList;
-
 import no.uib.inf101.sem2.fantomas.grid.CellPosition;
 import no.uib.inf101.sem2.fantomas.grid.Grid;
 
@@ -12,23 +13,14 @@ public class FantomasBoard extends Grid<Character> {
         super(rows, cols, '-');
     }
 
-    // Changes an entire row to a given value
+    /**Changes an entire row to a given value*/
     public void setRow(int row, char value) {
         for (int col = 0; col < cols(); col++) {
             set(new CellPosition(row, col), value);
         }
     }
 
-    // Copies an entire row's values
-    public void copyRow(int oldRow, int newRow) {
-        for (int col = 0; col < cols(); col++) {
-            CellPosition oldPos = new CellPosition(oldRow, col);
-            CellPosition newPos = new CellPosition(newRow, col);
-            set(newPos, get(oldPos));
-        }
-    }
-
-    // Returns the board in the form of a string
+    /**Returns the board in the form of a string*/
     public String prettyString() {
         ArrayList<String> rowStrings = new ArrayList<>();
         for (int row = 0; row < rows(); row++) {

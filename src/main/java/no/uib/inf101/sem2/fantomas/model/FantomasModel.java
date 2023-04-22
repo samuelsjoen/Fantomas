@@ -1,13 +1,12 @@
+// Based on TetrisBoard.java from Tetris with a lot of new methods added.
+
 package no.uib.inf101.sem2.fantomas.model;
-
-import no.uib.inf101.sem2.fantomas.grid.CellPosition;
-
 import java.util.List;
-
+import no.uib.inf101.sem2.fantomas.grid.CellPosition;
 import no.uib.inf101.sem2.fantomas.controller.ControllableFantomasModel;
 import no.uib.inf101.sem2.fantomas.grid.GridCell;
+import no.uib.inf101.sem2.fantomas.grid.GridDimension;
 import no.uib.inf101.sem2.fantomas.view.ViewableFantomasModel;
-import no.uib.inf101.sem2.grid.GridDimension;
 import no.uib.inf101.sem2.fantomas.model.rooms.Carpet;
 import no.uib.inf101.sem2.fantomas.model.rooms.Door;
 import no.uib.inf101.sem2.fantomas.model.rooms.Painting;
@@ -17,10 +16,10 @@ import no.uib.inf101.sem2.fantomas.model.rooms.Walls;
 public class FantomasModel implements ViewableFantomasModel, ControllableFantomasModel {
 
     private FantomasBoard board;
-    public GameState gameState;
-    public Player player;
-    public int roomNumber;
-    public char currentPaintingNumber;
+    private GameState gameState;
+    private Player player;
+    private int roomNumber;
+    private char currentPaintingNumber;
 
     public FantomasModel(FantomasBoard board) {
         super();
@@ -30,17 +29,7 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
         this.roomNumber = 1;
         this.currentPaintingNumber = '0';
     }
-
-    @Override
-    public GridDimension getDimension() {
-        return this.board;
-    }
-
-    @Override
-    public Iterable<GridCell<Character>> getTilesOnBoard() {
-        return this.board;
-    }
-
+  
     @Override
     public boolean movePlayer(int deltaRow, int deltaCol) {
         Player shiftedPlayer = player.shiftedBy(deltaRow, deltaCol);
@@ -48,87 +37,12 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
             player = shiftedPlayer;
             return true;
         }
-        if (isByDoor(shiftedPlayer) == true) {
+        if (isInDoor(shiftedPlayer) == true) {
             player = movePlayerToNewRoom();
         }
         return false;   
     }
 
-    public void viewPainting() {
-        if (isByPainting() == true) {
-            setGameState(GameState.PAINTINGVIEW);
-        }
-    }
-
-    public Player movePlayerToNewRoom() {
-        changeRoom();
-        if (player.pos.col() == 0) {
-            Player shiftedPlayer = player.shiftedBy(0, board.cols()-5);
-            return shiftedPlayer;
-        }
-        if (player.pos.col() == board.cols()-5) {
-            Player shiftedPlayer = player.shiftedBy(0, -(board.cols()-5));
-            return shiftedPlayer;
-        }
-        if (player.pos.row() == 0) {
-            Player shiftedPlayer = player.shiftedBy(board.rows()-5, 0);
-            return shiftedPlayer;
-        }
-        if (player.pos.row() == board.rows()-5) {
-            Player shiftedPlayer = player.shiftedBy(-(board.rows()-5), 0);
-            return shiftedPlayer;
-        }
-        return player;
-    }
-
-    @Override
-    public String getRoomName() {
-        String roomName = switch(roomNumber) {
-            case 1 -> "Baroque";
-            case 2 -> "Impressionism";
-            case 3 -> "Expressionism";
-            case 4 -> "Samuel Sjøen";
-            default -> throw new IllegalArgumentException("No available name for " + roomNumber);
-        };
-        return roomName;
-    }
-
-    public void changeRoom() {
-        clearBoard();
-        if (roomNumber == 1) {;
-            if (player.symbol == 'U') {
-                this.roomNumber = 2;
-            }
-            if (player.symbol == 'R') {
-                this.roomNumber = 4;
-            }
-        }
-        if (roomNumber == 2) {
-            if (player.symbol == 'D') {
-                this.roomNumber = 1;
-            }
-            if (player.symbol == 'R') {
-                this.roomNumber = 3;
-            }
-        }
-        if (roomNumber == 3) {
-            if (player.symbol == 'D') {
-                this.roomNumber = 4;
-            }
-            if (player.symbol == 'L') {
-                this.roomNumber = 2;
-            }
-        }
-        if (roomNumber == 4) {
-            if (player.symbol == 'U') {
-                this.roomNumber = 3;
-            }
-            if (player.symbol == 'L') {
-                this.roomNumber = 1;
-            }
-        }
-    }
-    
     @Override
     public boolean rotatePlayer(char c) {
         Player rotatedPlayer = player.rotatedPlayer(c);
@@ -140,14 +54,45 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
         } 
     }
 
-    @Override
-    public void clearBoard() {
-        for (int row = 0; row < board.rows(); row++) {
-            board.setRow(row, '-');
+    /**Helping method used to move player to the position they would be in in a new room 
+     * after having walked through a door */
+    private Player movePlayerToNewRoom() {
+        changeRoom();
+        if (player.getPos().col() == 0) {
+            Player shiftedPlayer = player.shiftedBy(0, board.cols()-5);
+            return shiftedPlayer;
         }
+        if (player.getPos().col() == board.cols()-5) {
+            Player shiftedPlayer = player.shiftedBy(0, -(board.cols()-5));
+            return shiftedPlayer;
+        }
+        if (player.getPos().row() == 0) {
+            Player shiftedPlayer = player.shiftedBy(board.rows()-5, 0);
+            return shiftedPlayer;
+        }
+        if (player.getPos().row() == board.rows()-5) {
+            Player shiftedPlayer = player.shiftedBy(-(board.rows()-5), 0);
+            return shiftedPlayer;
+        }
+        return player;
     }
 
-    public boolean isOutOfBounds(Player player) {
+    /**Helping method to check if a move is legal or not*/
+    private boolean isLegalMove(Player player) {
+
+        for (GridCell<Character> gc : player) {
+            if (board.get(new CellPosition(gc.pos().row(), gc.pos().col())) != '-') {
+                return false;
+            }
+            if (isOutOfBounds(player) == true) {
+                return false;
+            }
+        }
+        return true; 
+    }
+
+    /**Helping method to check if a move is within the grid*/
+    private boolean isOutOfBounds(Player player) {
 
         for (GridCell<Character> gc : player) {
             if (gc.pos().col() >= board.cols()) {
@@ -166,9 +111,47 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
         return false;
     }
 
-    public boolean isByDoor(Player shiftedPlayer) {
+    /**Helping method to change room number*/
+    private void changeRoom() {
+        clearBoard();
+        if (roomNumber == 1) {;
+            if (player.getSymbol() == 'U') {
+                this.roomNumber = 2;
+            }
+            if (player.getSymbol() == 'R') {
+                this.roomNumber = 4;
+            }
+        }
+        if (roomNumber == 2) {
+            if (player.getSymbol() == 'D') {
+                this.roomNumber = 1;
+            }
+            if (player.getSymbol() == 'R') {
+                this.roomNumber = 3;
+            }
+        }
+        if (roomNumber == 3) {
+            if (player.getSymbol() == 'D') {
+                this.roomNumber = 4;
+            }
+            if (player.getSymbol() == 'L') {
+                this.roomNumber = 2;
+            }
+        }
+        if (roomNumber == 4) {
+            if (player.getSymbol() == 'U') {
+                this.roomNumber = 3;
+            }
+            if (player.getSymbol() == 'L') {
+                this.roomNumber = 1;
+            }
+        }
+    }
+
+    /**Helping method to check if player is in a door*/
+    private boolean isInDoor(Player player) {
         int count = 0;
-        for (GridCell<Character> gc : shiftedPlayer) {
+        for (GridCell<Character> gc : player) {
             if (board.get(new CellPosition(gc.pos().row(), gc.pos().col())) == 'P') {
                 count += 1;
             }
@@ -179,18 +162,8 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
         return false;
     }
 
-    public CellPosition getCellPositionInFacingDirection() {
-        CellPosition pos = switch (player.getSymbol()) {
-            case 'U' -> new CellPosition(-1, 0);
-            case 'D' -> new CellPosition(1, 0);
-            case 'R' -> new CellPosition(0, 1);
-            case 'L' -> new CellPosition(0, -1);
-            default -> throw new IllegalArgumentException("No symbol such as "+ player.getSymbol());
-        };
-        return pos;
-    }
-
-    public boolean isByPainting() {
+    /**Helping method to check if player is by a painting*/
+    private boolean isByPainting() {
         CellPosition newPos = getCellPositionInFacingDirection();
         Player shiftedPlayer = player.shiftedBy(newPos.row(), newPos.col());
         char[] paintingNumbers = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
@@ -209,36 +182,35 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
         return false;
     }
 
-    public String getPaintingPath() {
-        for (Painting painting : getPaintingsForRoom()) {
-            if (painting.getNumber() == currentPaintingNumber) {
-                return painting.getPath();
-            }
-        }
-        throw new IllegalArgumentException("No path found for painting");
+    /**Helping method to get the next cellpos in the direction the player is facing*/
+    private CellPosition getCellPositionInFacingDirection() {
+        CellPosition pos = switch (player.getSymbol()) {
+            case 'U' -> new CellPosition(-1, 0);
+            case 'D' -> new CellPosition(1, 0);
+            case 'R' -> new CellPosition(0, 1);
+            case 'L' -> new CellPosition(0, -1);
+            default -> throw new IllegalArgumentException("No symbol such as "+ player.getSymbol());
+        };
+        return pos;
     }
 
-    public String getPaintingInfo() {
-        for (Painting painting : getPaintingsForRoom()) {
-            if (painting.getNumber() == currentPaintingNumber) {
-                return painting.getPaintinginfo();
-            }
+    @Override
+    public void viewPainting() {
+        if (isByPainting() == true) {
+            setGameState(GameState.PAINTINGVIEW);
         }
-        throw new IllegalArgumentException("No info found for painting");
+    }  
+
+    @Override
+    public void clearBoard() {
+        for (int row = 0; row < board.rows(); row++) {
+            board.setRow(row, '-');
+        }
     }
 
-    // Checks if the charaacters position is legal and returns a boolean value in accordance
-    public boolean isLegalMove(Player player) {
-
-        for (GridCell<Character> gc : player) {
-            if (board.get(new CellPosition(gc.pos().row(), gc.pos().col())) != '-') {
-                return false;
-            }
-            if (isOutOfBounds(player) == true) {
-                return false;
-            }
-        }
-        return true; 
+    @Override
+    public GridDimension getDimension() {
+        return this.board;
     }
 
     @Override
@@ -247,8 +219,25 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
     }
 
     @Override
+    public String getRoomName() {
+        String roomName = switch(roomNumber) {
+            case 1 -> "Baroque";
+            case 2 -> "Impressionism";
+            case 3 -> "Expressionism";
+            case 4 -> "Samuel Sjøen";
+            default -> throw new IllegalArgumentException("No available name for " + roomNumber);
+        };
+        return roomName;
+    }
+
+    @Override
     public void setGameState(GameState state) {
         gameState = state;
+    }
+
+    @Override
+    public Iterable<GridCell<Character>> getTilesOnBoard() {
+        return this.board;
     }
 
     @Override
@@ -270,15 +259,16 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
         return Carpet.newCarpet(getCarpetColor());
     }
 
-    private char getCarpetColor() {
-        char color = switch (roomNumber) {
-            case 1 -> 'M';
-            case 2 -> 'Y';
-            case 3 -> 'G';
-            case 4 -> 'O';
-            default -> throw new IllegalArgumentException("No available color for "+roomNumber);
-        };
-        return color;
+    @Override
+    public List<Painting> getPaintingsForRoom() {
+        return Room.getPaintingsForRoom(roomNumber, board);
+    }
+
+    @Override
+    public void gluePaintingToBoard(Painting painting) {
+        for (GridCell<Character> gc : painting) {
+            board.set(gc.pos(), painting.getNumber());
+        }
     }
 
     @Override
@@ -294,14 +284,34 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
     }
 
     @Override
-    public void gluePaintingToBoard(Painting painting) {
-        for (GridCell<Character> gc : painting) {
-            board.set(gc.pos(), painting.getNumber());
+    public String getPaintingPath() {
+        for (Painting painting : getPaintingsForRoom()) {
+            if (painting.getNumber() == currentPaintingNumber) {
+                return painting.getPath();
+            }
         }
+        throw new IllegalArgumentException("No path found for painting");
     }
 
     @Override
-    public List<Painting> getPaintingsForRoom() {
-        return Room.getPaintingsForRoom(roomNumber, board);
+    public String getPaintingInfo() {
+        for (Painting painting : getPaintingsForRoom()) {
+            if (painting.getNumber() == currentPaintingNumber) {
+                return painting.getPaintinginfo();
+            }
+        }
+        throw new IllegalArgumentException("No info found for painting");
     }
+
+    /**Helping method to get the carpet color in the current room*/
+    private char getCarpetColor() {
+        char color = switch (roomNumber) {
+            case 1 -> 'M';
+            case 2 -> 'Y';
+            case 3 -> 'G';
+            case 4 -> 'O';
+            default -> throw new IllegalArgumentException("No available color for "+roomNumber);
+        };
+        return color;
+    }      
 }

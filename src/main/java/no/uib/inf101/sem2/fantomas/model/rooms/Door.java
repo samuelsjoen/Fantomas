@@ -1,26 +1,28 @@
+// Inspired by tetromino.java from Tetris
+
 package no.uib.inf101.sem2.fantomas.model.rooms;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
-import no.uib.inf101.sem2.grid.GridDimension;
 import no.uib.inf101.sem2.fantomas.grid.CellPosition;
 import no.uib.inf101.sem2.fantomas.grid.GridCell;
+import no.uib.inf101.sem2.fantomas.grid.GridDimension;
 
 public class Door implements Iterable<GridCell<Character>> {
 
-    String direction;
-    boolean[][] orientation;
-    CellPosition pos;
+    private String direction;
+    private boolean[][] orientation;
+    private CellPosition pos;
 
-    public Door(String direction, boolean[][] orientation, CellPosition pos) {
+    private Door(String direction, boolean[][] orientation, CellPosition pos) {
         super();
         this.direction = direction;
         this.orientation = orientation;
         this.pos = pos;
     }
 
-    public static boolean[][] newOrientation(String direction) {
+    /**Creates a new orientation to be used in creation of door*/
+    private static boolean[][] newOrientation(String direction) {
         boolean[][] orientation = switch (direction) {
 
             case "vertical" -> new boolean[][] {
@@ -42,19 +44,19 @@ public class Door implements Iterable<GridCell<Character>> {
         return orientation;
     }
 
-    // Creates new door based on the input symbol
+    /**Creates a new door in the given direction*/
     public static Door createNew(String direction) {
         return new Door(direction, newOrientation(direction), new CellPosition(0, 0));
     }
 
-    // Shifts the player in the direction indicated in the parameters
+    /**Shifts the door by given parameters*/
     public Door shiftedBy(int deltaRow, int deltaCol) {
         CellPosition shiftedPos = new CellPosition(pos.row() + deltaRow, pos.col() + deltaCol);
         Door shiftedDoor = new Door(direction, orientation, shiftedPos);
         return shiftedDoor;
     }
 
-    // Shifts the door to the wall
+    /**Shifts the door to the wall within given grid*/
     public Door shiftedToWall(GridDimension grid, String wall) {
 
         int middleCol = grid.cols() / 2 - 4;

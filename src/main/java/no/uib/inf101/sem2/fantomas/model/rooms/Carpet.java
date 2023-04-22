@@ -1,24 +1,26 @@
+// Inspired by tetromino.java from Tetris
+
 package no.uib.inf101.sem2.fantomas.model.rooms;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import no.uib.inf101.sem2.fantomas.grid.CellPosition;
 import no.uib.inf101.sem2.fantomas.grid.GridCell;
 
 public class Carpet implements Iterable<GridCell<Character>> {
 
-    boolean[][] carpetGrid;
-    CellPosition pos;
-    char color;
+    private boolean[][] carpetGrid;
+    private CellPosition pos;
+    private char color;
 
-    public Carpet(boolean[][] carpetGrid, CellPosition pos, char color) {
+    private Carpet(boolean[][] carpetGrid, CellPosition pos, char color) {
         super();
         this.carpetGrid = carpetGrid;
         this.pos = pos;
         this.color = color;
     }
 
+    /**Creates new carpet with given color*/
     public static Carpet newCarpet(char color) {
         boolean[][] carpetGrid = new boolean[40][40];
         for (int row = 0; row < 40; row++) {

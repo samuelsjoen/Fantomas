@@ -1,23 +1,25 @@
+// Inspired by tetromino.java from Tetris
+
 package no.uib.inf101.sem2.fantomas.model.rooms;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
-import no.uib.inf101.sem2.grid.GridDimension;
 import no.uib.inf101.sem2.fantomas.grid.CellPosition;
 import no.uib.inf101.sem2.fantomas.grid.GridCell;
+import no.uib.inf101.sem2.fantomas.grid.GridDimension;
 
 public class Walls implements Iterable<GridCell<Character>> {
 
-    boolean[][] wallGrid;
-    CellPosition pos;
+    private boolean[][] wallGrid;
+    private CellPosition pos;
 
-    public Walls(boolean[][] wallGrid, CellPosition pos) {
+    private Walls(boolean[][] wallGrid, CellPosition pos) {
         super();
         this.wallGrid = wallGrid;
         this.pos = pos;
     }
 
+    /**Creates the walls for a given griddimension*/
     public static Walls newWalls(GridDimension grid) {
 
         boolean[][] wallGrid = new boolean[grid.rows()][grid.cols()];
