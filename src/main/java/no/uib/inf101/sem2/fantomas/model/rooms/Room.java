@@ -79,7 +79,7 @@ public class Room {
             return paintings;
         }
         else {
-            throw new IllegalArgumentException("No available doors for " + roomNumber);
+            throw new IllegalArgumentException("No available paintings for " + roomNumber);
         }
     }
 }

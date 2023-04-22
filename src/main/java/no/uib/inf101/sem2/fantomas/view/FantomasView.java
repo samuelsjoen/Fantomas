@@ -9,7 +9,6 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-import no.uib.inf101.sem2.fantomas.view.Inf101Graphics;
 import no.uib.inf101.sem2.fantomas.grid.GridCell;
 import no.uib.inf101.sem2.fantomas.model.GameState;
 import no.uib.inf101.sem2.fantomas.model.rooms.Door;
@@ -70,6 +69,7 @@ public class FantomasView extends JPanel {
             CellPositionToPixelConverter gridPixel = new CellPositionToPixelConverter(board, model.getDimension(), 0);
             drawCells(g2, model.getTilesOnBoard(), gridPixel, theme);
             drawCells(g2, model.getWallsOnBoard(), gridPixel, theme);
+            drawCells(g2, model.getCarpetOnBoard(), gridPixel, theme);
             drawCells(g2, model.getPlayerOnBoard(), gridPixel, theme);
             drawDoors(gridPixel, g2);
             drawPaintings(gridPixel, g2);
@@ -133,5 +133,9 @@ public class FantomasView extends JPanel {
         double x = getWidth()/2;
         double y = getHeight()/2;
         Inf101Graphics.drawCenteredImage(g2, image, x, y, 0.5);
+    }
+
+    private void drawCarpet(CellPositionToPixelConverter gridPixel, Graphics2D g2) {
+        
     }
 }

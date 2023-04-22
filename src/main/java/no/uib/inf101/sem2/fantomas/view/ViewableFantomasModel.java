@@ -19,6 +19,7 @@ public interface ViewableFantomasModel {
     public String getPaintingInfo();
     public List<Painting> getPaintingsForRoom();
     public String getRoomName();
+    public Iterable<GridCell<Character>> getCarpetOnBoard();
     public void glueDoorToBoard(Door door);
     public void gluePaintingToBoard(Painting painting);
     public Iterable<GridCell<Character>> getWallsOnBoard();

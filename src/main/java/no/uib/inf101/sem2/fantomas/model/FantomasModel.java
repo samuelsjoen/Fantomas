@@ -8,6 +8,7 @@ import no.uib.inf101.sem2.fantomas.controller.ControllableFantomasModel;
 import no.uib.inf101.sem2.fantomas.grid.GridCell;
 import no.uib.inf101.sem2.fantomas.view.ViewableFantomasModel;
 import no.uib.inf101.sem2.grid.GridDimension;
+import no.uib.inf101.sem2.fantomas.model.rooms.Carpet;
 import no.uib.inf101.sem2.fantomas.model.rooms.Door;
 import no.uib.inf101.sem2.fantomas.model.rooms.Painting;
 import no.uib.inf101.sem2.fantomas.model.rooms.Room;
@@ -262,6 +263,22 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
             board.set(gc.pos(), 'W');
         }
         return walls;
+    }
+
+    @Override
+    public Iterable<GridCell<Character>> getCarpetOnBoard() {
+        return Carpet.newCarpet(getCarpetColor());
+    }
+
+    private char getCarpetColor() {
+        char color = switch (roomNumber) {
+            case 1 -> 'M';
+            case 2 -> 'Y';
+            case 3 -> 'G';
+            case 4 -> 'O';
+            default -> throw new IllegalArgumentException("No available color for "+roomNumber);
+        };
+        return color;
     }
 
     @Override

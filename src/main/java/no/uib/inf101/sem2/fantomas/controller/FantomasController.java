@@ -8,8 +8,6 @@ import no.uib.inf101.sem2.fantomas.model.GameState;
 import no.uib.inf101.sem2.fantomas.midi.FantomasSong;
 import no.uib.inf101.sem2.fantomas.view.FantomasView;
 
-import java.awt.event.ActionEvent;
-
 public class FantomasController implements KeyListener {
 
     ControllableFantomasModel model;

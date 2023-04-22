@@ -24,6 +24,10 @@ public class DefaultColorTheme implements ColorTheme {
             case '7' -> getPaintingColor();
             case '8' -> getPaintingColor();
             case '9' -> getPaintingColor();
+            case 'M' -> new Color(255, 139, 192);
+            case 'Y' -> new Color(255, 201, 77);
+            case 'G' -> new Color(93, 85, 0);
+            case 'O' -> new Color(255, 166, 116);
             default -> throw new IllegalArgumentException("No available color for " + character);
         };
         return color;
