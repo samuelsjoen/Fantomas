@@ -50,12 +50,12 @@ public class DefaultColorTheme implements ColorTheme {
 
     @Override
     public Color textColor() {
-        return Color.orange;
+        return new Color(255, 222, 147);
     }
 
     @Override
     public Color getStartScreenColor() {
-        return Color.white;
+        return new Color(93, 85, 0);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class DefaultColorTheme implements ColorTheme {
 
     @Override
     public Color getPauseColor() {
-        return Color.cyan;
+        return Color.lightGray;
     }
 
     @Override
@@ -81,5 +81,10 @@ public class DefaultColorTheme implements ColorTheme {
     @Override
     public Color getPaintingColor() {
         return new Color(180, 114, 0);
+    }
+
+    @Override
+    public Color getPaintViewColor() {
+        return Color.darkGray;
     }
 }

@@ -54,10 +54,10 @@ public class FantomasView extends JPanel {
             g2.setColor(theme.textColor());
             g2.setFont(new Font("Arial", Font.BOLD, 50));
             g2.drawString("FANTOMAS", this.getWidth()/2-130, this.getHeight()/2-55);
-            g2.setColor(theme.textColor3());
+            g2.setColor(theme.textColor2());
             g2.setFont(new Font("Arial", Font.BOLD, 20));
-            g2.drawString("Press key", this.getWidth()/2-45, this.getHeight()/2);
-            g2.drawString("'down' to begin", this.getWidth()/2-75, this.getHeight()/2+20);
+            g2.drawString("Press key", this.getWidth()/2-40, this.getHeight()/2);
+            g2.drawString("'down' to begin", this.getWidth()/2-70, this.getHeight()/2+20);
 
         }
 
@@ -94,8 +94,11 @@ public class FantomasView extends JPanel {
         }
 
         if (model.getGameState() == GameState.PAINTINGVIEW) {
+            Rectangle2D paintViewScreen = new Rectangle2D.Double(5, 5, (this.getWidth() - 5), (this.getHeight() - 5));
+            g2.setColor(theme.getPaintViewColor());
+            g2.fill(paintViewScreen);
             showPainting(g2);
-            g2.setColor(theme.textColor());
+            g2.setColor(theme.textColor2());
             g2.setFont(new Font("Arial", Font.BOLD, 20));
             g2.drawString("Press key", this.getWidth()/2-50, this.getHeight()-40);
             g2.drawString("'down' to resume", this.getWidth()/2-80, this.getHeight()-20);
