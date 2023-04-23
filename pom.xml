@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <!-- Major project properties -->
-    <groupId>no.uib.inf101.sem2</groupId> <!-- must match package of Main class -->
+    <groupId>no.uib.inf101.sem2.fantomas</groupId> <!-- must match package of Main class -->
     <artifactId>INF101Sem2</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>INF101 Sem 2</name>
+    <name>Fantomas</name>
     <packaging>jar</packaging>
 
     <properties>
@@ -17,8 +17,8 @@
         <java.version>17</java.version>
 
         <!-- Properties required for packaging application as JAR and installer -->
-        <app.main.class>${project.groupId}.Main</app.main.class> <!-- name of main class -->
-        <app.vendor>Torstein Strømme</app.vendor> <!-- replace with your name -->
+        <app.main.class>FantomasMain.Main</app.main.class> <!-- name of main class -->
+        <app.vendor>Samuel Sjøen</app.vendor> <!-- replace with your name -->
         <app.version>1.0.0</app.version> <!-- version displayed in "about" -->
         <app.installer.macosx.type>dmg</app.installer.macosx.type> <!-- dmg, pkg -->
         <app.installer.windows.type>msi</app.installer.windows.type> <!-- msi, exe -->
