@@ -1,6 +1,7 @@
 // Based on TetrisBoard.java from Tetris with a lot of new methods added.
 
 package no.uib.inf101.sem2.fantomas.model;
+
 import java.util.List;
 import no.uib.inf101.sem2.fantomas.grid.CellPosition;
 import no.uib.inf101.sem2.fantomas.controller.ControllableFantomasModel;
@@ -29,19 +30,15 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
         this.roomNumber = 1;
         this.currentPaintingNumber = '0';
     }
-  
+
     @Override
     public boolean movePlayer(int deltaRow, int deltaCol) {
         Player shiftedPlayer = player.shiftedBy(deltaRow, deltaCol);
-        if (isInDoor(shiftedPlayer) == true) {
-            player = movePlayerToNewRoom();
-            return false;
-        }
         if (isLegalMove(shiftedPlayer) == true) {
             player = shiftedPlayer;
             return true;
         }
-        return false;   
+        return false;
     }
 
     @Override
@@ -52,47 +49,57 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
             return true;
         } else {
             return false;
-        } 
+        }
     }
 
-    /**Helping method used to move player to the position they would be in in a new room 
-     * after having walked through a door */
+    /**
+     * Helping method used to move player to the position they would be in in a new
+     * room
+     * after having walked through a door
+     */
     private Player movePlayerToNewRoom() {
         changeRoom();
         if (player.getPos().col() == 0) {
-            Player shiftedPlayer = player.shiftedBy(0, board.cols()-5);
+            rotatePlayer('R');
+            Player shiftedPlayer = player.shiftedBy(0, board.cols() - 5);
             return shiftedPlayer;
         }
-        if (player.getPos().col() == board.cols()-5) {
-            Player shiftedPlayer = player.shiftedBy(0, -(board.cols()-5));
+        if (player.getPos().col() == board.cols() - 5) {
+            rotatePlayer('L');
+            Player shiftedPlayer = player.shiftedBy(0, -(board.cols() - 5));
             return shiftedPlayer;
         }
         if (player.getPos().row() == 0) {
-            Player shiftedPlayer = player.shiftedBy(board.rows()-5, 0);
+            rotatePlayer('D');
+            Player shiftedPlayer = player.shiftedBy(board.rows() - 5, 0);
             return shiftedPlayer;
         }
-        if (player.getPos().row() == board.rows()-5) {
-            Player shiftedPlayer = player.shiftedBy(-(board.rows()-5), 0);
+        if (player.getPos().row() == board.rows() - 5) {
+            rotatePlayer('U');
+            Player shiftedPlayer = player.shiftedBy(-(board.rows() - 5), 0);
             return shiftedPlayer;
         }
         return player;
     }
 
-    /**Helping method to check if a move is legal or not*/
-    private boolean isLegalMove(Player player) {
-
-        for (GridCell<Character> gc : player) {
+    /** Helping method to check if a move is legal or not */
+    private boolean isLegalMove(Player movedPlayer) {
+        if (isOutOfBounds(movedPlayer) == true) {
+            return false;
+        }
+        if (isInDoor(movedPlayer) == true) {
+            player = movePlayerToNewRoom();
+            return false;
+        }
+        for (GridCell<Character> gc : movedPlayer) {
             if (board.get(new CellPosition(gc.pos().row(), gc.pos().col())) != '-') {
                 return false;
             }
-            if (isOutOfBounds(player) == true) {
-                return false;
-            }
         }
-        return true; 
+        return true;
     }
 
-    /**Helping method to check if a move is within the grid*/
+    /** Helping method to check if a move is within the grid */
     private boolean isOutOfBounds(Player player) {
 
         for (GridCell<Character> gc : player) {
@@ -106,50 +113,50 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
                 return true;
             }
             if (gc.pos().row() < 0) {
-                return true; 
+                return true;
             }
         }
         return false;
     }
 
-    /**Helping method to change room number*/
+    /** Helping method to change room number */
     private void changeRoom() {
         clearBoard();
-        if (roomNumber == 1) {;
-            if (player.getSymbol() == 'U') {
+        if (roomNumber == 1) {
+            if (player.getPos().row() == 0) {
                 this.roomNumber = 2;
             }
-            if (player.getSymbol() == 'R') {
+            if (player.getPos().col() == board.cols() - 5) {
                 this.roomNumber = 4;
             }
         }
         if (roomNumber == 2) {
-            if (player.getSymbol() == 'D') {
+            if (player.getPos().row() == board.rows() - 5) {
                 this.roomNumber = 1;
             }
-            if (player.getSymbol() == 'R') {
+            if (player.getPos().col() == board.cols() - 5) {
                 this.roomNumber = 3;
             }
         }
         if (roomNumber == 3) {
-            if (player.getSymbol() == 'D') {
+            if (player.getPos().row() == board.rows() - 5) {
                 this.roomNumber = 4;
             }
-            if (player.getSymbol() == 'L') {
+            if (player.getPos().col() == 0) {
                 this.roomNumber = 2;
             }
         }
         if (roomNumber == 4) {
-            if (player.getSymbol() == 'U') {
+            if (player.getPos().row() == 0) {
                 this.roomNumber = 3;
             }
-            if (player.getSymbol() == 'L') {
+            if (player.getPos().col() == 0) {
                 this.roomNumber = 1;
             }
         }
     }
 
-    /**Helping method to check if player is in a door*/
+    /** Helping method to check if player is in a door */
     private boolean isInDoor(Player player) {
         int count = 0;
         for (GridCell<Character> gc : player) {
@@ -163,11 +170,11 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
         return false;
     }
 
-    /**Helping method to check if player is by a painting*/
+    /** Helping method to check if player is by a painting */
     private boolean isByPainting() {
         CellPosition newPos = getCellPositionInFacingDirection();
         Player shiftedPlayer = player.shiftedBy(newPos.row(), newPos.col());
-        char[] paintingNumbers = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+        char[] paintingNumbers = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
         int count = 0;
         for (GridCell<Character> gc : shiftedPlayer) {
             for (char number : paintingNumbers) {
@@ -183,14 +190,16 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
         return false;
     }
 
-    /**Helping method to get the next cellpos in the direction the player is facing*/
+    /**
+     * Helping method to get the next cellpos in the direction the player is facing
+     */
     private CellPosition getCellPositionInFacingDirection() {
         CellPosition pos = switch (player.getSymbol()) {
             case 'U' -> new CellPosition(-1, 0);
             case 'D' -> new CellPosition(1, 0);
             case 'R' -> new CellPosition(0, 1);
             case 'L' -> new CellPosition(0, -1);
-            default -> throw new IllegalArgumentException("No symbol such as "+ player.getSymbol());
+            default -> throw new IllegalArgumentException("No symbol such as " + player.getSymbol());
         };
         return pos;
     }
@@ -200,7 +209,7 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
         if (isByPainting() == true) {
             setGameState(GameState.PAINTINGVIEW);
         }
-    }  
+    }
 
     @Override
     public void clearBoard() {
@@ -221,7 +230,7 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
 
     @Override
     public String getRoomName() {
-        String roomName = switch(roomNumber) {
+        String roomName = switch (roomNumber) {
             case 1 -> "Baroque";
             case 2 -> "Impressionism";
             case 3 -> "Expressionism";
@@ -304,15 +313,15 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
         throw new IllegalArgumentException("No info found for painting");
     }
 
-    /**Helping method to get the carpet color in the current room*/
+    /** Helping method to get the carpet color in the current room */
     private char getCarpetColor() {
         char color = switch (roomNumber) {
             case 1 -> 'M';
             case 2 -> 'Y';
             case 3 -> 'G';
             case 4 -> 'O';
-            default -> throw new IllegalArgumentException("No available color for "+roomNumber);
+            default -> throw new IllegalArgumentException("No available color for " + roomNumber);
         };
         return color;
-    }      
+    }
 }
