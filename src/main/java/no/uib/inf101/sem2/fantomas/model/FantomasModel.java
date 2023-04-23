@@ -33,12 +33,13 @@ public class FantomasModel implements ViewableFantomasModel, ControllableFantoma
     @Override
     public boolean movePlayer(int deltaRow, int deltaCol) {
         Player shiftedPlayer = player.shiftedBy(deltaRow, deltaCol);
+        if (isInDoor(shiftedPlayer) == true) {
+            player = movePlayerToNewRoom();
+            return false;
+        }
         if (isLegalMove(shiftedPlayer) == true) {
             player = shiftedPlayer;
             return true;
-        }
-        if (isInDoor(shiftedPlayer) == true) {
-            player = movePlayerToNewRoom();
         }
         return false;   
     }

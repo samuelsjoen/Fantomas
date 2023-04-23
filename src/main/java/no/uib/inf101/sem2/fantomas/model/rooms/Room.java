@@ -91,11 +91,47 @@ public class Room {
         if (roomNumber == 3) {   
             Painting deadMother = Painting.newPainting(9, '0', "/paintings/deadMother.jpg", "Schiele: Dead Mother (1910)").rotatedPainting().shiftedToWall(grid, "north").shiftedBy(0, -15);
             paintings.add(deadMother);
+            Painting detSykeBarn = Painting.newPainting(11, '1', "/paintings/detSykeBarn.jpg", "Munch: Det syke barn (1927)").rotatedPainting().shiftedToWall(grid, "north").shiftedBy(0, -1);
+            paintings.add(detSykeBarn);
+            Painting bohemensBryllup = Painting.newPainting(9, '2', "/paintings/bohemensBryllup.jpg", "Munch: Bohemens bryllup (1925)").rotatedPainting().shiftedToWall(grid, "north").shiftedBy(0, 15);
+            paintings.add(bohemensBryllup);
+            Painting nattISaintCloud = Painting.newPainting(9, '3', "/paintings/nattISaintCloud.jpg", "Munch: Natt i Saint-Cloud (1893)").shiftedToWall(grid, "east").shiftedBy(-15, 0);
+            paintings.add(nattISaintCloud);
+            Painting theEmbrace = Painting.newPainting(11, '4', "/paintings/theEmbrace.jpg", "Schiele: The Embrace (1917)").shiftedToWall(grid, "east");
+            paintings.add(theEmbrace);
+            Painting morgenNakenKvinneVedVinduet = Painting.newPainting(7, '5', "/paintings/morgenNakenKvinneVedVinduet.jpg", "Munch: Morgen. Naken kvinne ved vinduet (1902)").shiftedToWall(grid, "east").shiftedBy(15, 0);
+            paintings.add(morgenNakenKvinneVedVinduet);
+            Painting vampyr = Painting.newPainting(11, '6', "/paintings/vampyr.jpg", "Munch: Vampyr (1893)").rotatedPainting().shiftedToWall(grid, "south").shiftedBy(0, 15);
+            paintings.add(vampyr);
+            Painting psykeOgAmor = Painting.newPainting(7, '7', "/paintings/psykeOgAmor.jpg", "Munch: Psyke og Amor (1907)").rotatedPainting().shiftedToWall(grid, "south").shiftedBy(0, -15);
+            paintings.add(psykeOgAmor);
+            Painting maratsDød = Painting.newPainting(9, '8', "/paintings/maratsDød.jpg", "Munch: Marats død (1907)").shiftedToWall(grid, "west").shiftedBy(15, 0);
+            paintings.add(maratsDød);
+            Painting mordersken = Painting.newPainting(9, '9', "/paintings/mordersken.jpg", "Munch: Mordersken (1906)").shiftedToWall(grid, "west").shiftedBy(-15, 0);
+            paintings.add(mordersken);
             return paintings;
         }
         if (roomNumber == 4) {  
-            Painting narcissus = Painting.newPainting(9, '0', "/paintings/narcissus.jpg", "Caravaggio: Narcissus (1599)").rotatedPainting().shiftedToWall(grid, "north").shiftedBy(0, -15);
-            paintings.add(narcissus);
+            Painting shadow = Painting.newPainting(9, '0', "/paintings/shadow.jpg", "Samuel Sjøen: uten tittel (2022)").rotatedPainting().shiftedToWall(grid, "north").shiftedBy(0, -15);
+            paintings.add(shadow);
+            Painting lina = Painting.newPainting(9, '1', "/paintings/lina.jpg", "Samuel Sjøen: Lina (2023)").rotatedPainting().shiftedToWall(grid, "north").shiftedBy(0, 15);
+            paintings.add(lina);
+            Painting sonder = Painting.newPainting(9, '2', "/paintings/sonder.jpg", "Samuel Sjøen: Sonder (2023)").shiftedToWall(grid, "east").shiftedBy(-15, 0);
+            paintings.add(sonder);
+            Painting visjonar = Painting.newPainting(11, '3', "/paintings/visjonar.jpg", "Samuel Sjøen: Visjonar (2022)").shiftedToWall(grid, "east");
+            paintings.add(visjonar);
+            Painting beiningen = Painting.newPainting(7, '4', "/paintings/beiningen.jpg", "Samuel Sjøen: Beiningen (2022)").shiftedToWall(grid, "east").shiftedBy(15, 0);
+            paintings.add(beiningen);
+            Painting tinghus = Painting.newPainting(11, '5', "/paintings/tinghus.jpg", "Samuel Sjøen: Tinghus (2023)").rotatedPainting().shiftedToWall(grid, "south").shiftedBy(0, 12);
+            paintings.add(tinghus);
+            Painting baselDemonstrant = Painting.newPainting(11, '6', "/paintings/baselDemonstrant.jpg", "Samuel Sjøen: Basel demonstrant (2022)").rotatedPainting().shiftedToWall(grid, "south").shiftedBy(0, -3);
+            paintings.add(baselDemonstrant);
+            Painting brooklynBoogieWoogie = Painting.newPainting(7, '7', "/paintings/brooklynBoogieWoogie.jpg", "Samuel Sjøen: Brooklyn Boogie Woogie (2021)").rotatedPainting().shiftedToWall(grid, "south").shiftedBy(0, -15);
+            paintings.add(brooklynBoogieWoogie);
+            Painting athen = Painting.newPainting(9, '8', "/paintings/athen.jpg", "Samuel Sjøen: Αθήνα, επιστροφή στην Ακρόπολη (2022)").shiftedToWall(grid, "west").shiftedBy(15, 0);
+            paintings.add(athen);
+            Painting stairs = Painting.newPainting(9, '9', "/paintings/stairs.jpg", "Samuel Sjøen: uten tittel (2022)").shiftedToWall(grid, "west").shiftedBy(-15, 0);
+            paintings.add(stairs);
             return paintings;
         }
         else {
