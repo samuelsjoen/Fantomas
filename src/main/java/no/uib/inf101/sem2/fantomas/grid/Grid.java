@@ -17,9 +17,9 @@ public class Grid<E> implements IGrid<E> {
     public Grid(int rows, int cols, E defaultValue) {
         gridList = new ArrayList<>();
 
-        for (int row=0; row < rows ; row++) {
+        for (int row = 0; row < rows; row++) {
             List<E> columnList = new ArrayList<>();
-            for (int col=0 ; col < cols ; col++) {
+            for (int col = 0; col < cols; col++) {
                 columnList.add(defaultValue);
             }
 
@@ -34,16 +34,17 @@ public class Grid<E> implements IGrid<E> {
 
     @Override
     public int cols() {
-        if (gridList.size() == 0) return 0;
-        
+        if (gridList.size() == 0)
+            return 0;
+
         return gridList.get(0).size();
     }
 
     @Override
     public Iterator<GridCell<E>> iterator() {
         ArrayList<GridCell<E>> gridCells = new ArrayList<GridCell<E>>();
-        for (int row=0 ; row < rows() ; row++) {
-            for (int col=0 ; col < cols() ; col++) {
+        for (int row = 0; row < rows(); row++) {
+            for (int col = 0; col < cols(); col++) {
                 CellPosition pos = new CellPosition(row, col);
                 GridCell<E> cell = new GridCell<>(pos, get(pos));
                 gridCells.add(cell);
@@ -54,7 +55,8 @@ public class Grid<E> implements IGrid<E> {
 
     @Override
     public void set(CellPosition pos, E value) {
-        if (!positionIsOnGrid(pos)) throw new IndexOutOfBoundsException("Position " + pos + " is not on grid!");
+        if (!positionIsOnGrid(pos))
+            throw new IndexOutOfBoundsException("Position " + pos + " is not on grid!");
 
         List<E> row = gridList.get(pos.row());
         row.set(pos.col(), value);
@@ -62,8 +64,9 @@ public class Grid<E> implements IGrid<E> {
 
     @Override
     public E get(CellPosition pos) {
-        if (!positionIsOnGrid(pos)) throw new IndexOutOfBoundsException("Position " + pos + " is not on grid!");
- 
+        if (!positionIsOnGrid(pos))
+            throw new IndexOutOfBoundsException("Position " + pos + " is not on grid!");
+
         List<E> row = gridList.get(pos.row());
         E column = row.get(pos.col());
         return column;
@@ -71,10 +74,13 @@ public class Grid<E> implements IGrid<E> {
 
     @Override
     public boolean positionIsOnGrid(CellPosition pos) {
-        if (pos.row() < 0 || pos.col() < 0) return false;
-        if (pos.row() >= rows()) return false;
-        if (pos.col() >= cols()) return false;
+        if (pos.row() < 0 || pos.col() < 0)
+            return false;
+        if (pos.row() >= rows())
+            return false;
+        if (pos.col() >= cols())
+            return false;
         return true;
     }
-    
+
 }

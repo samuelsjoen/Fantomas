@@ -10,8 +10,6 @@ import no.uib.inf101.sem2.fantomas.grid.CellPosition;
 import no.uib.inf101.sem2.fantomas.grid.GridCell;
 import no.uib.inf101.sem2.fantomas.grid.GridDimension;
 
-
-
 public class Player implements Iterable<GridCell<Character>> {
 
     private char symbol;
@@ -25,56 +23,56 @@ public class Player implements Iterable<GridCell<Character>> {
         this.pos = pos;
     }
 
-    /**Creates a new orientation to be used in creating aa player*/
+    /** Creates a new orientation to be used in creating aa player */
     private static boolean[][] newOrientation(char symbol) {
         boolean[][] orientation = switch (symbol) {
 
             case 'U' -> new boolean[][] {
-                { false, false, false, false, false },
-                { false, true, true, true, false },
-                { true, true, true, true, true },
-                { false, true, true, true, false },
-                { false, false, false, false, false }
+                    { false, false, false, false, false },
+                    { false, true, true, true, false },
+                    { true, true, true, true, true },
+                    { false, true, true, true, false },
+                    { false, false, false, false, false }
             };
             case 'D' -> new boolean[][] {
-                { false, false, false, false, false },
-                { false, true, true, true, false },
-                { true, true, true, true, true },
-                { false, true, true, true, false },
-                { false, false, false, false, false }
+                    { false, false, false, false, false },
+                    { false, true, true, true, false },
+                    { true, true, true, true, true },
+                    { false, true, true, true, false },
+                    { false, false, false, false, false }
             };
             case 'L' -> new boolean[][] {
-                { false, false, true, false, false },
-                { false, true, true, true, false },
-                { false, true, true, true, false },
-                { false, true, true, true, false },
-                { false, false, true, false, false }
+                    { false, false, true, false, false },
+                    { false, true, true, true, false },
+                    { false, true, true, true, false },
+                    { false, true, true, true, false },
+                    { false, false, true, false, false }
             };
             case 'R' -> new boolean[][] {
-                { false, false, true, false, false },
-                { false, true, true, true, false },
-                { false, true, true, true, false },
-                { false, true, true, true, false },
-                { false, false, true, false, false }
+                    { false, false, true, false, false },
+                    { false, true, true, true, false },
+                    { false, true, true, true, false },
+                    { false, true, true, true, false },
+                    { false, false, true, false, false }
             };
             default -> throw new IllegalArgumentException("No available player for " + symbol);
         };
         return orientation;
     }
 
-    /**Creates new player based on the input symbol*/
+    /** Creates new player based on the input symbol */
     public static Player newPlayer(char symbol) {
         return new Player(symbol, newOrientation(symbol), new CellPosition(0, 0));
     }
 
-    /**Shifts the player in the direction indicated in the parameters*/
+    /** Shifts the player in the direction indicated in the parameters */
     public Player shiftedBy(int deltaRow, int deltaCol) {
         CellPosition shiftedPos = new CellPosition(pos.row() + deltaRow, pos.col() + deltaCol);
         Player shiftedPlayer = new Player(symbol, orientation, shiftedPos);
         return shiftedPlayer;
     }
 
-    /**Shifts the player to the centre of the grid*/
+    /** Shifts the player to the centre of the grid */
     public Player shiftedToCenter(GridDimension grid) {
         int adjustmentForCharacterSize = 2;
         int middleCol = grid.cols() / 2 - adjustmentForCharacterSize;
@@ -83,19 +81,19 @@ public class Player implements Iterable<GridCell<Character>> {
         return shiftedPlayer;
     }
 
-    /**Rotates the player*/
+    /** Rotates the player */
     public Player rotatedPlayer(char newOrientation) {
         Player rotatedPlayer = new Player(newOrientation, newOrientation(newOrientation), pos);
         return rotatedPlayer;
     }
-    
-    /**Returns a copy of the players symbol*/
+
+    /** Returns a copy of the players symbol */
     public char getSymbol() {
         char playerSymbol = this.symbol;
         return playerSymbol;
     }
 
-    /**Returns a copy of the players position*/
+    /** Returns a copy of the players position */
     public CellPosition getPos() {
         CellPosition playerPos = this.pos;
         return playerPos;

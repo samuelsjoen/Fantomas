@@ -21,53 +21,53 @@ public class Door implements Iterable<GridCell<Character>> {
         this.pos = pos;
     }
 
-    /**Creates a new orientation to be used in creation of door*/
+    /** Creates a new orientation to be used in creation of door */
     private static boolean[][] newOrientation(String direction) {
         boolean[][] orientation = switch (direction) {
 
             case "vertical" -> new boolean[][] {
-                { true },
-                { true },
-                { true },
-                { true },
-                { true },
-                { true },
-                { true },
-                { true },
-                { true }
+                    { true },
+                    { true },
+                    { true },
+                    { true },
+                    { true },
+                    { true },
+                    { true },
+                    { true },
+                    { true }
             };
             case "horizontal" -> new boolean[][] {
-                { true, true, true, true, true, true, true, true, true }
+                    { true, true, true, true, true, true, true, true, true }
             };
             default -> throw new IllegalArgumentException("No available door for " + direction);
         };
         return orientation;
     }
 
-    /**Creates a new door in the given direction*/
-    public static Door createNew(String direction) {
+    /** Creates a new door in the given direction */
+    public static Door newDoor(String direction) {
         return new Door(direction, newOrientation(direction), new CellPosition(0, 0));
     }
 
-    /**Shifts the door by given parameters*/
+    /** Shifts the door by given parameters */
     public Door shiftedBy(int deltaRow, int deltaCol) {
         CellPosition shiftedPos = new CellPosition(pos.row() + deltaRow, pos.col() + deltaCol);
         Door shiftedDoor = new Door(direction, orientation, shiftedPos);
         return shiftedDoor;
     }
 
-    /**Shifts the door to the wall within given grid*/
+    /** Shifts the door to the wall within given grid */
     public Door shiftedToWall(GridDimension grid, String wall) {
 
         int middleCol = grid.cols() / 2 - 4;
         int middleRow = grid.rows() / 2 - 4;
-        
-        if (wall == "west") { 
+
+        if (wall == "west") {
             Door shiftedDoor = shiftedBy(middleRow, 0);
             return shiftedDoor;
         }
         if (wall == "east") {
-            Door shiftedDoor = shiftedBy(middleRow, grid.cols()-1);
+            Door shiftedDoor = shiftedBy(middleRow, grid.cols() - 1);
             return shiftedDoor;
         }
         if (wall == "north") {
@@ -75,7 +75,7 @@ public class Door implements Iterable<GridCell<Character>> {
             return shiftedDoor;
         }
         if (wall == "south") {
-            Door shiftedDoor = shiftedBy(grid.cols()-1, middleCol);
+            Door shiftedDoor = shiftedBy(grid.cols() - 1, middleCol);
             return shiftedDoor;
         }
 
@@ -97,5 +97,5 @@ public class Door implements Iterable<GridCell<Character>> {
         }
         return orientations.iterator();
     }
-    
+
 }

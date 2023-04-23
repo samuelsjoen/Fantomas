@@ -32,7 +32,7 @@ public class DefaultColorTheme implements ColorTheme {
         };
         return color;
     }
-    
+
     @Override
     public Color getDoorColor() {
         return Color.white;
@@ -42,6 +42,7 @@ public class DefaultColorTheme implements ColorTheme {
     public Color getPaintingColor() {
         return new Color(180, 114, 0);
     }
+
     @Override
     public Color getFrameColor() {
         return Color.white;

@@ -13,14 +13,14 @@ public class FantomasBoard extends Grid<Character> {
         super(rows, cols, '-');
     }
 
-    /**Changes an entire row to a given value*/
+    /** Changes an entire row to a given value */
     public void setRow(int row, char value) {
         for (int col = 0; col < cols(); col++) {
             set(new CellPosition(row, col), value);
         }
     }
 
-    /**Returns the board in the form of a string*/
+    /** Returns the board in the form of a string */
     public String prettyString() {
         ArrayList<String> rowStrings = new ArrayList<>();
         for (int row = 0; row < rows(); row++) {

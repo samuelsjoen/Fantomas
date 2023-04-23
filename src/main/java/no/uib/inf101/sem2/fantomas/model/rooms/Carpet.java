@@ -20,7 +20,7 @@ public class Carpet implements Iterable<GridCell<Character>> {
         this.color = color;
     }
 
-    /**Creates new carpet with given color*/
+    /** Creates new carpet with given color */
     public static Carpet newCarpet(char color) {
         boolean[][] carpetGrid = new boolean[40][40];
         for (int row = 0; row < 40; row++) {
@@ -45,5 +45,5 @@ public class Carpet implements Iterable<GridCell<Character>> {
         }
         return carpetGrids.iterator();
     }
-    
+
 }

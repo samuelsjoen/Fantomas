@@ -5,6 +5,7 @@ package no.uib.inf101.sem2.fantomas.midi;
 import java.io.InputStream;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Sequencer;
+
 /**
  * Play the Fantomaas music. Sample usage:
  * <code>
@@ -31,8 +32,7 @@ public class FantomasSong implements Runnable {
             }
             this.sequencer.open();
             this.sequencer.start();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             this.midiError("" + e);
         }
     }
@@ -44,8 +44,7 @@ public class FantomasSong implements Runnable {
             }
             this.sequencer.stop();
             this.sequencer.close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             this.midiError("" + e);
         }
         this.sequencer = null;
@@ -57,20 +56,18 @@ public class FantomasSong implements Runnable {
                 return;
             }
             this.sequencer.stop();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             this.midiError("" + e);
         }
     }
-    
+
     public void doUnpauseMidiSounds() {
         try {
             if (this.sequencer == null) {
                 return;
             }
             this.sequencer.start();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             this.midiError("" + e);
         }
     }

@@ -14,7 +14,6 @@ import no.uib.inf101.sem2.fantomas.model.GameState;
 import no.uib.inf101.sem2.fantomas.model.rooms.Door;
 import no.uib.inf101.sem2.fantomas.model.rooms.Painting;
 
-
 public class FantomasView extends JPanel {
 
     private ViewableFantomasModel model;
@@ -32,9 +31,11 @@ public class FantomasView extends JPanel {
 
     }
 
-    /**The paintComponent method is called by the Java Swing framework every time
-    *either the window opens or resizes, or we call .repaint() on this object.
-    *Note: NEVER call paintComponent directly yourself*/
+    /**
+     * The paintComponent method is called by the Java Swing framework every time
+     * either the window opens or resizes, or we call .repaint() on this object.
+     * Note: NEVER call paintComponent directly yourself
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -42,14 +43,14 @@ public class FantomasView extends JPanel {
         drawGame(g2);
     }
 
-    /**Draws the different components that make up the game*/
+    /** Draws the different components that make up the game */
     private void drawGame(Graphics2D g2) {
 
-        //Draws the start screen and denotes how to start the screen
+        // Draws the start screen and denotes how to start the screen
         if (model.getGameState() == GameState.START_SCREEN) {
             BufferedImage image = Inf101Graphics.loadImageFromResources("/fantomas.jpg");
-            double x = getWidth()/2;
-            double y = getHeight()/2;
+            double x = getWidth() / 2;
+            double y = getHeight() / 2;
             Inf101Graphics.drawCenteredImage(g2, image, x, y, 0.75);
         }
 
@@ -68,8 +69,8 @@ public class FantomasView extends JPanel {
             g2.setColor(theme.textColor3());
             g2.setFont(new Font("Arial", Font.BOLD, 15));
             // g2.drawString("ROOM: "+model.get(), 5, this.getHeight()-23);
-            g2.drawString("ROOM: "+model.getRoomName(), 5, this.getHeight()-7);
-            
+            g2.drawString("ROOM: " + model.getRoomName(), 5, this.getHeight() - 7);
+
         }
 
         // Draws the pause screen as well as denoting how to return to the game
@@ -79,10 +80,10 @@ public class FantomasView extends JPanel {
             g2.fill(pauseScreen);
             g2.setColor(theme.textColor2());
             g2.setFont(new Font("Arial", Font.BOLD, 30));
-            g2.drawString("PAUSE", this.getWidth()/2-50, this.getHeight()/2);
+            g2.drawString("PAUSE", this.getWidth() / 2 - 50, this.getHeight() / 2);
             g2.setFont(new Font("Arial", Font.BOLD, 20));
-            g2.drawString("Press key", this.getWidth()/2-50, this.getHeight()-40);
-            g2.drawString("'down' to resume", this.getWidth()/2-80, this.getHeight()-20);
+            g2.drawString("Press key", this.getWidth() / 2 - 50, this.getHeight() - 40);
+            g2.drawString("'down' to resume", this.getWidth() / 2 - 80, this.getHeight() - 20);
         }
 
         // Draws the paintingview as well as denoting how to return to the game
@@ -93,15 +94,20 @@ public class FantomasView extends JPanel {
             showPainting(g2);
             g2.setColor(theme.textColor2());
             g2.setFont(new Font("Arial", Font.BOLD, 20));
-            g2.drawString("Press key", this.getWidth()/2-50, this.getHeight()-40);
-            g2.drawString("'down' to resume", this.getWidth()/2-80, this.getHeight()-20);
+            g2.drawString("Press key", this.getWidth() / 2 - 50, this.getHeight() - 40);
+            g2.drawString("'down' to resume", this.getWidth() / 2 - 80, this.getHeight() - 20);
             String paintingInfo = model.getPaintingInfo();
-            g2.drawString(paintingInfo, (this.getWidth()/2)-(paintingInfo.length()*10/2), this.getHeight()/10);
+            g2.drawString(paintingInfo, (this.getWidth() / 2) - (paintingInfo.length() * 10 / 2),
+                    this.getHeight() / 10);
         }
     }
 
-    /**Helping method to draw the cells that make up the board as well as the player and environment*/
-    private void drawCells(Graphics2D g2, Iterable<GridCell<Character>> gc, CellPositionToPixelConverter cptopixel, ColorTheme theme) {
+    /**
+     * Helping method to draw the cells that make up the board as well as the player
+     * and environment
+     */
+    private void drawCells(Graphics2D g2, Iterable<GridCell<Character>> gc, CellPositionToPixelConverter cptopixel,
+            ColorTheme theme) {
         for (GridCell<Character> grid : gc) {
             Rectangle2D cell = cptopixel.getBoundsForCell(grid.pos());
             g2.setColor(theme.getCellColor(grid.value()));
@@ -109,27 +115,27 @@ public class FantomasView extends JPanel {
         }
     }
 
-    /**Helping method to draw the cells that make up the doors*/
+    /** Helping method to draw the cells that make up the doors */
     private void drawDoors(CellPositionToPixelConverter gridPixel, Graphics2D g2) {
         for (Door door : model.getDoorsForRoom()) {
             model.glueDoorToBoard(door);
             drawCells(g2, door, gridPixel, theme);
-        }     
+        }
     }
 
-    /**Helping method to draw the cells that make up the paintings*/    
+    /** Helping method to draw the cells that make up the paintings */
     private void drawPaintings(CellPositionToPixelConverter gridPixel, Graphics2D g2) {
         for (Painting painting : model.getPaintingsForRoom()) {
             model.gluePaintingToBoard(painting);
             drawCells(g2, painting, gridPixel, theme);
-        }     
+        }
     }
 
-    /**Helping method to get the images for paintings*/
+    /** Helping method to get the images for paintings */
     private void showPainting(Graphics2D g2) {
         BufferedImage image = Inf101Graphics.loadImageFromResources(model.getPaintingPath());
-        double x = getWidth()/2;
-        double y = getHeight()/2;
+        double x = getWidth() / 2;
+        double y = getHeight() / 2;
         Inf101Graphics.drawCenteredImage(g2, image, x, y, 0.5);
     }
 }

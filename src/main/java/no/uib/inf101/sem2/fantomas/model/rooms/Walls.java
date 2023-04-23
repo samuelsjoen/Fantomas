@@ -19,21 +19,19 @@ public class Walls implements Iterable<GridCell<Character>> {
         this.pos = pos;
     }
 
-    /**Creates the walls for a given griddimension*/
+    /** Creates the walls for a given griddimension */
     public static Walls newWalls(GridDimension grid) {
 
         boolean[][] wallGrid = new boolean[grid.rows()][grid.cols()];
 
-        for (int row = 0; row < grid.rows(); row++) { 
+        for (int row = 0; row < grid.rows(); row++) {
             for (int col = 0; col < grid.cols(); col++) {
-                if (row == 0 || row == grid.rows()-1) {   
+                if (row == 0 || row == grid.rows() - 1) {
                     wallGrid[row][col] = true;
-                }
-                else if (col == 0 || col == grid.cols()-1) {
+                } else if (col == 0 || col == grid.cols() - 1) {
                     wallGrid[row][col] = true;
-                }
-                else {
-                    wallGrid[row][col] = false; 
+                } else {
+                    wallGrid[row][col] = false;
                 }
             }
         }

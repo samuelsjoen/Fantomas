@@ -26,86 +26,89 @@ public class Painting implements Iterable<GridCell<Character>> {
         this.info = info;
     }
 
-    /**Creates a new painting with given size, which number painting it is in the room, the path to the image
-     * file used to display the painting as well as the info about painting (arist, name and date)
+    /**
+     * Creates a new painting with given size, which number painting it is in the
+     * room, the path to the image
+     * file used to display the painting as well as the info about painting (arist,
+     * name and date)
      */
     public static Painting newPainting(int size, char number, String path, String info) {
         boolean[][] paintingGrid = switch (size) {
 
-            case 7-> new boolean[][] {
-                { true },
-                { true },
-                { true },
-                { true },
-                { true },
-                { true },
-                { true }
+            case 7 -> new boolean[][] {
+                    { true },
+                    { true },
+                    { true },
+                    { true },
+                    { true },
+                    { true },
+                    { true }
             };
             case 9 -> new boolean[][] {
-                { true },
-                { true },
-                { true },
-                { true },
-                { true },
-                { true },
-                { true },
-                { true },
-                { true }
+                    { true },
+                    { true },
+                    { true },
+                    { true },
+                    { true },
+                    { true },
+                    { true },
+                    { true },
+                    { true }
             };
             case 11 -> new boolean[][] {
-                { true },
-                { true },
-                { true },
-                { true },
-                { true },
-                { true },
-                { true },
-                { true },
-                { true },
-                { true },
-                { true }
+                    { true },
+                    { true },
+                    { true },
+                    { true },
+                    { true },
+                    { true },
+                    { true },
+                    { true },
+                    { true },
+                    { true },
+                    { true }
             };
             default -> throw new IllegalArgumentException("No available painting for " + size);
         };
         return new Painting(size, paintingGrid, new CellPosition(0, 0), number, path, info);
     }
 
-    /**Rotates the painting 90 degrees*/
+    /** Rotates the painting 90 degrees */
     public Painting rotatedPainting() {
         boolean[][] rotatedPaintingGrid = switch (size) {
             case 7 -> new boolean[][] {
-                { true, true, true, true, true, true, true }
+                    { true, true, true, true, true, true, true }
             };
             case 9 -> new boolean[][] {
-                { true, true, true, true, true, true, true, true, true }
+                    { true, true, true, true, true, true, true, true, true }
             };
             case 11 -> new boolean[][] {
-                { true, true, true, true, true, true, true, true, true, true, true }
+                    { true, true, true, true, true, true, true, true, true, true, true }
             };
             default -> throw new IllegalArgumentException("No available painting for " + size);
         };
         return new Painting(size, rotatedPaintingGrid, pos, number, path, info);
     }
 
-    /**Shifts the painting in the direction given within the parameters*/
+    /** Shifts the painting in the direction given within the parameters */
     public Painting shiftedBy(int deltaRow, int deltaCol) {
         CellPosition shiftedPos = new CellPosition(pos.row() + deltaRow, pos.col() + deltaCol);
         Painting shiftedPainting = new Painting(size, paintingGrid, shiftedPos, number, path, info);
         return shiftedPainting;
     }
 
-    /**Shifts the painting to the wall within given grid*/
+    /** Shifts the painting to the wall within given grid */
     public Painting shiftedToWall(GridDimension grid, String wall) {
 
         int middleCol = grid.cols() / 2 - 4;
         int middleRow = grid.rows() / 2 - 4;
-        
-        if (wall == "west") { 
+
+        if (wall == "west") {
             Painting shiftedPainting = shiftedBy(middleRow, 1);
             return shiftedPainting;
         }
         if (wall == "east") {
-            Painting shiftedPainting = shiftedBy(middleRow, grid.cols()-2);
+            Painting shiftedPainting = shiftedBy(middleRow, grid.cols() - 2);
             return shiftedPainting;
         }
         if (wall == "north") {
@@ -113,28 +116,26 @@ public class Painting implements Iterable<GridCell<Character>> {
             return shiftedPainting;
         }
         if (wall == "south") {
-            Painting shiftedPainting = shiftedBy(grid.rows()-2, middleCol);
+            Painting shiftedPainting = shiftedBy(grid.rows() - 2, middleCol);
             return shiftedPainting;
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("No such wall as " + wall);
         }
     }
-    
 
-    /**Returns a copy of the paintings number*/
+    /** Returns a copy of the paintings number */
     public char getNumber() {
         char paintingNumber = this.number;
         return paintingNumber;
     }
 
-    /**Returns a copy of the paintings image file path*/
+    /** Returns a copy of the paintings image file path */
     public String getPath() {
         String paintingPath = this.path;
         return paintingPath;
     }
 
-    /**Returns a copy of the paintings info*/
+    /** Returns a copy of the paintings info */
     public String getPaintinginfo() {
         String paintingInfo = this.info;
         return paintingInfo;
@@ -154,5 +155,5 @@ public class Painting implements Iterable<GridCell<Character>> {
         }
         return paintingGrids.iterator();
     }
-    
+
 }
