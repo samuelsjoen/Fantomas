@@ -1,3 +1,5 @@
+// Some tests based on Tetris tests
+
 package no.uib.inf101.sem2.fantomas.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

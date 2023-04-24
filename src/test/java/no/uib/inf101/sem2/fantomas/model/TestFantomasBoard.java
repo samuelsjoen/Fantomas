@@ -1,3 +1,5 @@
+// Test loaned from Tetris
+
 package no.uib.inf101.sem2.fantomas.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -6,7 +8,7 @@ import no.uib.inf101.sem2.fantomas.grid.CellPosition;
 
 public class TestFantomasBoard {
 
-  @Test // Test loaned from Tetris
+  @Test
   public void testPrettyString() {
     FantomasBoard board = new FantomasBoard(3, 4);
     board.set(new CellPosition(0, 0), 'g');
